@@ -672,14 +672,8 @@ Generate a concise meeting prep brief with these sections:
 Keep it under 200 words total. Direct, no fluff. No em dashes.`;
 
   try {
-    const res = await fetch('https://api.anthropic.com/v1/messages',{
-      method:'POST',
-      headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:400,messages:[{role:'user',content:prompt}]})
-    });
-    const data = await res.json();
-    const text = data.content?.find(b=>b.type==='text')?.text || 'Could not generate prep. Try again.';
-    content.textContent = text;
+    const text = await callAI(prompt, 400);
+    content.textContent = text || 'Could not generate prep. Try again.';
   } catch {
     content.textContent = 'Could not generate prep. Check your connection.';
   }
@@ -717,14 +711,8 @@ Write a Monday morning overview for Federico. 3 short paragraphs max:
 Warm but direct. Under 120 words. No em dashes. No bullet points in the response — prose only.`;
 
   try {
-    const res = await fetch('https://api.anthropic.com/v1/messages',{
-      method:'POST',
-      headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:300,messages:[{role:'user',content:prompt}]})
-    });
-    const data = await res.json();
-    const text = data.content?.find(b=>b.type==='text')?.text || 'Could not generate overview.';
-    document.getElementById('mondayContent').textContent = text;
+    const text = await callAI(prompt, 300);
+    document.getElementById('mondayContent').textContent = text || 'Could not generate overview.';
   } catch {
     document.getElementById('mondayContent').textContent = 'Could not generate weekly overview. Try refreshing.';
   }
@@ -760,13 +748,7 @@ For each headline, write one sentence describing a LinkedIn post angle Federico 
 
 Only return valid JSON, nothing else.`;
 
-    const claudeRes = await fetch('https://api.anthropic.com/v1/messages',{
-      method:'POST',
-      headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:400,messages:[{role:'user',content:prompt}]})
-    });
-    const claudeData = await claudeRes.json();
-    const raw = claudeData.content?.find(b=>b.type==='text')?.text||'[]';
+    const raw = await callAI(prompt, 400);
     const angles = JSON.parse(raw.replace(/```json|```/g,'').trim());
 
     container.innerHTML = angles.map((a,i) => `
@@ -975,18 +957,26 @@ async function generateCustomPost(){
   await callClaude(`Write a short LinkedIn post from Federico Gagliardone, founder of MECENAS Media, reaching 25M+ U.S. Hispanics monthly. Tone: human, warm, direct, not salesy. The angle: ${v}. 3 short paragraphs max. No em dashes or double hyphens.`,'linkedin');
 }
 
+async function callAI(prompt, maxTokens=1000) {
+  const res = await fetch('https://sam-proxy.federico-50f.workers.dev', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ model: 'gpt-4o', max_tokens: maxTokens, messages: [{ role: 'user', content: prompt }] })
+  });
+  const data = await res.json();
+  return data.choices?.[0]?.message?.content || '';
+}
+
 async function callClaude(prompt,mode){
   const thinking=document.getElementById(mode+'-thinking');
   const outputBox=document.getElementById(mode+'-output');
   const outputContent=document.getElementById(mode+'-output-content');
   thinking.classList.add('visible'); outputBox.classList.remove('visible'); outputContent.textContent='';
   try{
-    const res=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:1000,messages:[{role:'user',content:prompt}]})});
-    const data=await res.json();
-    const text=data.content?.find(b=>b.type==='text')?.text||'Something went wrong. Try again.';
-    thinking.classList.remove('visible'); outputContent.textContent=text; outputBox.classList.add('visible');
+    const text = await callAI(prompt, 1000);
+    thinking.classList.remove('visible'); outputContent.textContent=text||'Something went wrong. Try again.'; outputBox.classList.add('visible');
   }catch{
-    thinking.classList.remove('visible'); outputContent.textContent='Could not reach Claude. Check your connection.'; outputBox.classList.add('visible');
+    thinking.classList.remove('visible'); outputContent.textContent='Could not reach SAM. Check your connection.'; outputBox.classList.add('visible');
   }
 }
 
