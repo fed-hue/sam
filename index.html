@@ -124,6 +124,9 @@ body{background:var(--bone);color:var(--text);font-family:var(--sans);font-size:
 .deal-name{flex:1;font-size:13px;font-weight:500;color:var(--text)}
 .deal-meta{font-size:11px;color:var(--muted);text-align:right;line-height:1.5}
 .deal-touch{font-size:11px;color:var(--muted2)}
+.deal-followup-btn{font-size:11px;background:var(--bone);border:1px solid var(--border);border-radius:4px;padding:4px 10px;color:var(--accent);font-family:var(--sans);cursor:pointer;margin-top:4px;display:block;transition:all 0.12s;white-space:nowrap}
+.deal-followup-btn:hover{background:var(--accent-light);border-color:var(--accent)}
+.deal-status{font-size:11px;display:block;text-align:right}
 
 /* ALERTS */
 .alert-card{background:var(--white);border:1px solid var(--border);border-left:3px solid var(--blue);border-radius:var(--radius);padding:14px 18px;margin-bottom:10px}
@@ -285,22 +288,28 @@ body{background:var(--bone);color:var(--text);font-family:var(--sans);font-size:
 
 <!-- DEAL PULSE -->
 <div class="section-label">Deal pulse</div>
-<div class="deal-card">
+<div class="deal-card" id="dealCard">
   <div class="deal-row">
     <div class="deal-indicator hot"></div>
     <div style="flex:1">
       <div class="deal-name">Pepsi — Mercadito Sessions</div>
       <div class="deal-touch">World Cup 2026 content series · OMD / Gerardo Zavala</div>
     </div>
-    <div class="deal-meta">Near close<br><span style="color:var(--accent)">Follow up</span></div>
+    <div class="deal-meta">
+      <span class="deal-status" style="color:var(--accent)">Near close</span>
+      <button class="deal-followup-btn" onclick="draftFollowUp('Pepsi Mercadito Sessions','Gerardo Zavala','OMD','World Cup 2026 content series, near close, waiting on final confirmation')">Draft follow-up →</button>
+    </div>
   </div>
   <div class="deal-row">
     <div class="deal-indicator hot"></div>
     <div style="flex:1">
       <div class="deal-name">Toyota — World Cup activation</div>
-      <div class="deal-touch">Top 2 partner candidates · social + OLV open</div>
+      <div class="deal-touch">Top 2 partner candidates · social + OLV open questions</div>
     </div>
-    <div class="deal-meta">In review<br><span style="color:var(--accent)">Pending</span></div>
+    <div class="deal-meta">
+      <span class="deal-status" style="color:var(--accent)">In review</span>
+      <button class="deal-followup-btn" onclick="draftFollowUp('Toyota World Cup activation','Toyota marketing team','Toyota','top 2 partner candidate, open questions on social handles and OLV distribution')">Draft follow-up →</button>
+    </div>
   </div>
   <div class="deal-row">
     <div class="deal-indicator warm"></div>
@@ -308,7 +317,10 @@ body{background:var(--bone);color:var(--text);font-family:var(--sans);font-size:
       <div class="deal-name">Pillsbury — UM/GMI RFP</div>
       <div class="deal-touch">~$1.3M OLV + Display · Hispanic families</div>
     </div>
-    <div class="deal-meta">Proposal sent<br><span style="color:var(--amber)">Waiting</span></div>
+    <div class="deal-meta">
+      <span class="deal-status" style="color:var(--amber)">Waiting</span>
+      <button class="deal-followup-btn" onclick="draftFollowUp('Pillsbury RFP','UM/GMI team','UM','$1.3M OLV and Display RFP targeting Hispanic families, proposal submitted, waiting for response')">Draft follow-up →</button>
+    </div>
   </div>
   <div class="deal-row">
     <div class="deal-indicator cold"></div>
@@ -316,8 +328,17 @@ body{background:var(--bone);color:var(--text);font-family:var(--sans);font-size:
       <div class="deal-name">WPP / Unilever</div>
       <div class="deal-touch">Multicultural entry point · early stage</div>
     </div>
-    <div class="deal-meta">Early<br><span style="color:var(--muted2)">Prospecting</span></div>
+    <div class="deal-meta">
+      <span class="deal-status" style="color:var(--muted2)">Prospecting</span>
+      <button class="deal-followup-btn" onclick="draftFollowUp('WPP Unilever','WPP team','WPP','early stage multicultural media prospecting, no prior contact')">Draft follow-up →</button>
+    </div>
   </div>
+</div>
+<!-- DEAL FOLLOW-UP OUTPUT -->
+<div class="output-box" id="deal-output" style="margin-top:10px">
+  <div class="output-label">Draft follow-up — ready to copy</div>
+  <div class="output-content" id="deal-output-content"></div>
+  <button class="copy-btn" onclick="copyOutput('deal-output-content')">Copy to clipboard</button>
 </div>
 
 <!-- ALERTS -->
@@ -544,6 +565,8 @@ function classifyEvent(ev) {
   if(t.includes('webinar')||t.includes('on24')||t.includes('zapier')||t.includes('gusto')||t.includes('abc of')||t.includes('livestorm')) return 'webinar';
   if(t.includes('linkedin')||t.includes('ai /')||t.includes('automation')||t.includes('lead / out')||t.includes('block - no')) return 'block';
   if(t.includes('dmv')||t.includes('hard stop')) return 'warning';
+  const personalKeywords = ['terapia','therapy','dentist','doctor','dmv','yoga','gym','personal','lezione','italiano'];
+  if(personalKeywords.some(k=>t.includes(k))) return 'internal';
   const external = (ev.attendees||[]).some(a => a.email && !a.email.includes('wearecocina') && !a.email.includes('mecenasgroup') && !a.organizer && a.email !== 'adops@wearecocina.com');
   if(external) return 'external';
   return 'internal';
@@ -674,8 +697,9 @@ Keep it under 200 words total. Direct, no fluff. No em dashes.`;
   try {
     const text = await callAI(prompt, 400);
     content.textContent = text || 'Could not generate prep. Try again.';
-  } catch {
-    content.textContent = 'Could not generate prep. Check your connection.';
+  } catch(e) {
+    console.error('Prep error:', e);
+    content.textContent = 'Could not generate prep — proxy may still be deploying. Try again in 30 seconds.';
   }
 }
 
@@ -726,7 +750,9 @@ async function loadNewsTopics() {
     const allArticles = [];
 
     for(const q of queries) {
-      const res = await fetch(`https://newsapi.org/v2/everything?q=${encodeURIComponent(q)}&language=en&sortBy=publishedAt&pageSize=3&apiKey=${NEWS_API_KEY}`);
+      const res = await fetch(`https://newsapi.org/v2/everything?q=${encodeURIComponent(q)}&language=en&sortBy=publishedAt&pageSize=3&apiKey=${NEWS_API_KEY}`, {
+        headers: { 'X-Api-Key': NEWS_API_KEY }
+      });
       const data = await res.json();
       if(data.articles) allArticles.push(...data.articles);
     }
@@ -958,13 +984,19 @@ async function generateCustomPost(){
 }
 
 async function callAI(prompt, maxTokens=1000) {
-  const res = await fetch('https://sam-proxy.federico-50f.workers.dev', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ model: 'gpt-4o', max_tokens: maxTokens, messages: [{ role: 'user', content: prompt }] })
-  });
-  const data = await res.json();
-  return data.choices?.[0]?.message?.content || '';
+  try {
+    const res = await fetch('https://sam-proxy.federico-50f.workers.dev', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ model: 'gpt-4o', max_tokens: maxTokens, messages: [{ role: 'user', content: prompt }] })
+    });
+    if(!res.ok) { console.error('Proxy error:', res.status, await res.text()); return ''; }
+    const data = await res.json();
+    return data.choices?.[0]?.message?.content || '';
+  } catch(e) {
+    console.error('callAI failed:', e);
+    return '';
+  }
 }
 
 async function callClaude(prompt,mode){
@@ -985,6 +1017,35 @@ function copyOutput(id){
     const btn=event.currentTarget; btn.textContent='Copied ✓';
     setTimeout(()=>btn.textContent='Copy to clipboard',2000);
   });
+}
+
+// ── DEAL FOLLOW-UP ──
+async function draftFollowUp(deal, contact, company, context) {
+  const outputBox = document.getElementById('deal-output');
+  const outputContent = document.getElementById('deal-output-content');
+  outputContent.textContent = 'Drafting follow-up...';
+  outputBox.classList.add('visible');
+  outputBox.scrollIntoView({behavior:'smooth', block:'nearest'});
+
+  const prompt = `You are SAM, chief of staff for Federico Gagliardone, founder of MECENAS Media (multicultural media company reaching 25M+ U.S. Hispanics monthly).
+
+Draft a short, warm follow-up email from Federico for this deal:
+Deal: ${deal}
+Contact/Company: ${contact} at ${company}
+Context: ${context}
+
+The email should:
+- Be 3-4 sentences maximum
+- Feel human and direct, not salesy
+- Reference the specific deal context naturally
+- End with a soft, clear ask (call, reply, next step)
+- No em dashes or double hyphens of any kind
+- Sign off as Federico
+
+Return only the email body, no subject line, no extra commentary.`;
+
+  const text = await callAI(prompt, 300);
+  outputContent.textContent = text || 'Could not generate draft. Try again.';
 }
 
 // ── INIT ──
