@@ -746,45 +746,39 @@ Warm but direct. Under 120 words. No em dashes. No bullet points in the response
 async function loadNewsTopics() {
   const container = document.getElementById('newsTopics');
   try {
-    const queries = ['Hispanic marketing multicultural', 'World Cup 2026 brands', 'Latino media content'];
-    const allArticles = [];
+    const res = await fetch('https://sam-proxy.federico-50f.workers.dev', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ type: 'news' })
+    });
+    const data = await res.json();
+    const articles = data.articles || [];
 
-    for(const q of queries) {
-      try {
-        const res = await fetch('https://sam-proxy.federico-50f.workers.dev', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ type: 'news', query: q })
-        });
-        const data = await res.json();
-        if(data.articles) allArticles.push(...data.articles);
-      } catch(e) {
-        console.error('News fetch error for query:', q, e);
-      }
-    }
-
-    const unique = allArticles.filter((a,i,arr) =>
-      a.title && !a.title.includes('[Removed]') &&
-      arr.findIndex(b=>b.title===a.title)===i
-    ).slice(0,4);
-
-    if(unique.length === 0) {
+    if(articles.length === 0) {
       container.innerHTML = '<div class="news-loading">No fresh headlines today. Use a standing topic below.</div>';
       return;
     }
 
+    const headlines = articles.map(a => `"${a.webTitle}" — The Guardian`).join('\n');
+
     const prompt = `You are SAM, chief of staff for Federico Gagliardone, founder of MECENAS Media (multicultural media, 25M+ U.S. Hispanics monthly).
 
 Here are today's headlines:
-${unique.map((a,i)=>`${i+1}. "${a.title}" — ${a.source.name}`).join('\n')}
+${headlines}
 
-For each headline, write one sentence describing a LinkedIn post angle Federico could take as a multicultural media founder. His voice: direct, sharp, no corporate language, no em dashes. Format as JSON array:
-[{"headline":"...(10 words max)","angle":"...one sharp sentence"}]
+For each headline, write one sentence describing a sharp LinkedIn post angle Federico could take as a multicultural media founder. His voice: direct, no corporate language, no em dashes, sounds like a founder not a brand.
 
-Only return valid JSON, nothing else.`;
+Format as JSON array — only return valid JSON, nothing else:
+[{"headline":"...(10 words max)","angle":"...one sharp sentence"}]`;
 
-    const raw = await callAI(prompt, 400);
-    const angles = JSON.parse(raw.replace(/\`\`\`json|\`\`\`/g,'').trim());
+    const raw = await callAI(prompt, 500);
+    const cleaned = raw.replace(/\`\`\`json|\`\`\`/g,'').trim();
+    const angles = JSON.parse(cleaned);
+
+    if(!angles || angles.length === 0) {
+      container.innerHTML = '<div class="news-loading">No angles generated. Use a standing topic below.</div>';
+      return;
+    }
 
     container.innerHTML = angles.map(a => `
       <div class="news-item" onclick="generatePostFromNews('${a.headline.replace(/'/g,"\'").replace(/"/g,'&quot;')}','${a.angle.replace(/'/g,"\'").replace(/"/g,'&quot;')}')">
