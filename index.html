@@ -16,6 +16,7 @@
   --blue:#1a4a7a;--blue-light:#eaf0f8;
   --amber:#8a6a1a;--amber-light:#fdf6e4;
   --red:#8a1a1a;--red-light:#fdf0f0;
+  --purple:#4a1a7a;--purple-light:#f0eafd;
   --serif:'Playfair Display',Georgia,serif;
   --sans:'DM Sans',system-ui,sans-serif;
   --radius:10px;
@@ -25,68 +26,110 @@ body{background:var(--bone);color:var(--text);font-family:var(--sans);font-size:
 
 /* HEADER */
 .top-bar{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:36px}
-.sam-name{font-family:var(--serif);font-size:30px;font-weight:400;color:var(--text);letter-spacing:-0.5px;line-height:1;margin-bottom:3px}
+.sam-name{font-family:var(--serif);font-size:36px;font-weight:700;color:var(--text);letter-spacing:-0.5px;line-height:1;margin-bottom:3px}
 .sam-tagline{font-size:12px;color:var(--muted)}
 .date-pill{background:var(--white);border:1px solid var(--border);border-radius:40px;padding:7px 16px;font-size:12px;color:var(--text2);text-align:right;line-height:1.5}
 .date-pill strong{display:block;color:var(--text);font-weight:500;font-size:13px}
 
 /* GREETING */
-.greeting-banner{background:var(--white);border:1px solid var(--border);border-radius:var(--radius);padding:22px 26px;margin-bottom:20px}
+.greeting-banner{background:var(--white);border:1px solid var(--border);border-radius:var(--radius);padding:22px 26px;margin-bottom:12px}
 .greeting-headline{font-family:var(--serif);font-size:21px;font-weight:400;color:var(--text);margin-bottom:5px;line-height:1.35}
 .greeting-sub{font-size:13px;color:var(--muted);line-height:1.6}
 
+/* FOCUS BUTTON */
+.focus-bar{margin-bottom:20px}
+.focus-btn{width:100%;background:var(--white);border:1px solid var(--border);border-radius:var(--radius);padding:14px 20px;font-family:var(--sans);font-size:13px;color:var(--text2);cursor:pointer;text-align:left;transition:border-color 0.15s,box-shadow 0.15s;display:flex;align-items:center;gap:10px}
+.focus-btn:hover{border-color:var(--accent);box-shadow:0 2px 8px rgba(200,90,42,0.08)}
+.focus-btn-icon{font-size:16px;flex-shrink:0}
+.focus-btn-text{flex:1}
+.focus-btn-label{font-size:10px;text-transform:uppercase;letter-spacing:0.08em;color:var(--muted);display:block;margin-bottom:1px}
+.focus-btn-main{font-size:13px;color:var(--text)}
+.focus-output{background:var(--accent-light);border:1px solid #e8c4b0;border-radius:var(--radius);padding:16px 20px;margin-top:8px;display:none}
+.focus-output.visible{display:block}
+.focus-output-label{font-size:10px;text-transform:uppercase;letter-spacing:0.08em;color:var(--accent);font-weight:500;margin-bottom:10px}
+.focus-option{background:var(--white);border:1px solid #e8c4b0;border-radius:7px;padding:11px 14px;margin-bottom:7px;font-size:13px;color:var(--text2);line-height:1.6}
+.focus-option:last-child{margin-bottom:0}
+.focus-option strong{color:var(--accent);font-weight:500}
+
+/* AUTH */
+.auth-banner{background:var(--blue-light);border:1px solid #b5d0f0;border-radius:var(--radius);padding:18px 22px;margin-bottom:20px;display:none}
+.auth-banner.visible{display:block}
+.auth-title{font-size:13px;font-weight:500;color:var(--blue);margin-bottom:6px}
+.auth-desc{font-size:12px;color:var(--text2);margin-bottom:12px;line-height:1.6}
+.auth-btn{background:var(--blue);border:none;border-radius:6px;padding:9px 22px;color:#fff;font-family:var(--sans);font-size:13px;font-weight:500;cursor:pointer}
+.auth-btn:hover{opacity:0.88}
+.signout-link{font-size:11px;color:var(--muted);cursor:pointer;text-decoration:underline;margin-left:12px}
+
 /* SECTION LABEL */
 .section-label{font-size:10px;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);margin-bottom:8px;margin-top:28px}
-
-/* CARDS */
 .card{background:var(--white);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden}
 
+/* MONDAY OVERVIEW */
+.monday-card{background:var(--white);border:1px solid var(--border);border-left:3px solid var(--purple);border-radius:var(--radius);padding:18px 22px;margin-bottom:16px}
+.monday-headline{font-family:var(--serif);font-size:17px;color:var(--text);margin-bottom:10px}
+.monday-content{font-size:13px;color:var(--text2);line-height:1.8;white-space:pre-wrap}
+.monday-loading{font-size:13px;color:var(--muted);font-style:italic}
+
 /* TABS */
-.tab-bar{display:flex;border-bottom:1px solid var(--border);background:var(--bone)}
-.tab-btn{flex:1;padding:10px 12px;font-family:var(--sans);font-size:12px;font-weight:500;color:var(--muted);background:none;border:none;cursor:pointer;transition:all 0.12s;border-bottom:2px solid transparent;margin-bottom:-1px}
+.tab-bar{display:flex;border-bottom:1px solid var(--border);background:var(--bone);overflow-x:auto}
+.tab-btn{flex-shrink:0;padding:10px 14px;font-family:var(--sans);font-size:11px;font-weight:500;color:var(--muted);background:none;border:none;cursor:pointer;transition:all 0.12s;border-bottom:2px solid transparent;margin-bottom:-1px;white-space:nowrap;line-height:1.4;text-align:center}
 .tab-btn.active{color:var(--accent);border-bottom-color:var(--accent);background:var(--white)}
-.tab-content{display:none;padding:0}
+.tab-content{display:none}
 .tab-content.active{display:block}
 
-/* CALENDAR ROWS */
-.cal-row{display:flex;gap:0;padding:12px 18px;border-bottom:1px solid var(--border);align-items:flex-start}
+.cal-row{display:flex;padding:11px 18px;border-bottom:1px solid var(--border);align-items:flex-start}
 .cal-row:last-child{border-bottom:none}
-.cal-day-label{font-size:10px;font-weight:500;letter-spacing:0.06em;text-transform:uppercase;color:var(--accent);min-width:48px;padding-top:2px;flex-shrink:0}
-.cal-day-label.other{color:var(--amber)}
+.cal-dot{width:6px;height:6px;border-radius:50%;background:var(--border2);margin-top:6px;margin-right:12px;flex-shrink:0}
+.cal-dot.block{background:var(--green)}
+.cal-dot.webinar{background:var(--blue)}
+.cal-dot.warning{background:var(--amber)}
+.cal-dot.ooo{background:var(--muted2)}
+.cal-dot.external{background:var(--accent)}
+.cal-dot.internal{background:var(--border2)}
 .cal-events{flex:1}
-.cal-event{display:flex;align-items:baseline;gap:10px;padding:2px 0}
-.cal-time{font-size:11px;color:var(--muted);min-width:64px;flex-shrink:0}
-.cal-title{font-size:13px;color:var(--text2)}
-.cal-title.prep{color:var(--accent);font-weight:500;cursor:pointer;text-decoration:none}
-.cal-title.prep:hover{text-decoration:underline}
+.cal-event{display:flex;align-items:flex-start;gap:10px;padding:2px 0}
+.cal-time{font-size:11px;color:var(--muted);min-width:64px;flex-shrink:0;padding-top:1px}
+.cal-title{font-size:13px;color:var(--text2);line-height:1.4}
 .cal-title.block{color:var(--green)}
 .cal-title.webinar{color:var(--blue);font-weight:500}
 .cal-title.warning{color:var(--amber)}
 .cal-title.ooo{color:var(--muted);font-style:italic}
-.prep-badge{font-size:10px;background:var(--accent-light);color:var(--accent);border-radius:3px;padding:1px 6px;margin-left:6px;vertical-align:middle;cursor:pointer}
-
-/* LOAD BARS */
+.cal-title.external{color:var(--accent);font-weight:500}
+.prep-badge{font-size:10px;background:var(--accent-light);color:var(--accent);border-radius:3px;padding:1px 6px;margin-left:6px;cursor:pointer;border:none;font-family:var(--sans);vertical-align:middle;white-space:nowrap}
+.prep-badge:hover{background:var(--accent);color:var(--white)}
+.cal-empty{padding:16px 18px;font-size:13px;color:var(--muted);font-style:italic}
 .load-section{padding:10px 18px;border-top:1px solid var(--border)}
-.load-row{display:flex;align-items:center;gap:10px;padding:4px 0}
+.load-row{display:flex;align-items:center;gap:10px;padding:3px 0}
 .load-label{font-size:11px;color:var(--muted);min-width:80px}
 .load-bar{flex:1;height:3px;background:var(--bone2);border-radius:2px;overflow:hidden}
-.load-fill{height:100%;border-radius:2px;background:var(--green)}
-.load-fill.amber{background:var(--amber)}
-.load-fill.red{background:var(--red)}
-.load-text{font-size:11px;min-width:32px;text-align:right}
+.load-fill{height:100%;border-radius:2px}
 
-/* MEETING PREP PANEL */
-.prep-panel{background:var(--accent-light);border:1px solid #e8c4b0;border-radius:8px;padding:16px 18px;margin:12px 18px;display:none}
+/* PREP PANEL */
+.prep-panel{background:var(--accent-light);border:1px solid #e8c4b0;border-radius:8px;padding:16px 18px;margin:0 18px 14px;display:none}
 .prep-panel.visible{display:block}
-.prep-panel-title{font-size:12px;font-weight:500;color:var(--accent);margin-bottom:8px}
+.prep-panel-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
+.prep-panel-title{font-size:12px;font-weight:500;color:var(--accent)}
+.prep-close{font-size:11px;color:var(--muted);cursor:pointer;background:none;border:none;font-family:var(--sans)}
 .prep-content{font-size:13px;color:var(--text2);line-height:1.7;white-space:pre-wrap}
-.prep-close{font-size:11px;color:var(--muted);cursor:pointer;float:right;margin-top:-2px}
-.prep-close:hover{color:var(--text)}
+.prep-generating{font-size:12px;color:var(--muted);font-style:italic}
 
-/* ALERT CARDS */
+/* DEAL PULSE */
+.deal-card{background:var(--white);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden}
+.deal-row{display:flex;align-items:center;padding:12px 18px;border-bottom:1px solid var(--border);gap:14px}
+.deal-row:last-child{border-bottom:none}
+.deal-indicator{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.deal-indicator.hot{background:#c85a2a}
+.deal-indicator.warm{background:var(--amber)}
+.deal-indicator.cold{background:var(--muted2)}
+.deal-name{flex:1;font-size:13px;font-weight:500;color:var(--text)}
+.deal-meta{font-size:11px;color:var(--muted);text-align:right;line-height:1.5}
+.deal-touch{font-size:11px;color:var(--muted2)}
+
+/* ALERTS */
 .alert-card{background:var(--white);border:1px solid var(--border);border-left:3px solid var(--blue);border-radius:var(--radius);padding:14px 18px;margin-bottom:10px}
 .alert-card.amber-card{border-left-color:var(--amber)}
 .alert-card.red-card{border-left-color:var(--red)}
+.alert-card.muted-card{border-left-color:var(--muted2)}
 .alert-title{font-size:13px;font-weight:500;color:var(--text);margin-bottom:3px}
 .alert-desc{font-size:12px;color:var(--text2);line-height:1.6}
 .alert-time{font-size:11px;color:var(--muted);margin-top:6px}
@@ -97,37 +140,31 @@ body{background:var(--bone);color:var(--text);font-family:var(--sans);font-size:
 .learning-card{background:var(--white);border:1px solid var(--border);border-left:3px solid var(--accent);border-radius:var(--radius);padding:16px 20px}
 .learning-headline{font-family:var(--serif);font-size:15px;color:var(--text);margin-bottom:6px;line-height:1.4}
 .learning-body{font-size:13px;color:var(--text2);line-height:1.7;margin-bottom:12px}
-.tag-row{display:flex;gap:6px;flex-wrap:wrap;align-items:center}
 .tag{font-size:10px;font-weight:500;padding:3px 9px;border-radius:20px;letter-spacing:0.03em}
 .tag-course{background:var(--accent-light);color:var(--accent)}
 .tag-time{background:var(--bone2);color:var(--muted)}
-.tag-webinar{background:var(--blue-light);color:var(--blue)}
+.tag-row{display:flex;gap:6px;flex-wrap:wrap;align-items:center}
 .course-link{display:inline-flex;align-items:center;gap:5px;font-size:12px;color:var(--accent);text-decoration:none;font-weight:500;margin-top:10px}
 .course-link:hover{text-decoration:underline}
-
-/* CHECKLIST */
-.checklist{margin-top:16px}
-.check-item{display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid var(--border);cursor:pointer}
-.check-item:last-child{border-bottom:none}
-.check-item input[type=checkbox]{width:15px;height:15px;accent-color:var(--accent);cursor:pointer;flex-shrink:0}
-.check-label{font-size:13px;color:var(--text2);line-height:1.4;flex:1}
-.check-item.done .check-label{text-decoration:line-through;color:var(--muted2)}
-.check-meta{font-size:11px;color:var(--muted2)}
-
-/* PROGRESS BAR */
 .course-progress{margin-top:14px;padding-top:14px;border-top:1px solid var(--border)}
 .progress-label-row{display:flex;justify-content:space-between;margin-bottom:6px}
 .progress-label-text{font-size:11px;color:var(--muted)}
 .progress-pct{font-size:11px;color:var(--accent);font-weight:500}
 .progress-bar{height:4px;background:var(--bone2);border-radius:2px;overflow:hidden}
-.progress-fill{height:100%;background:var(--accent);border-radius:2px;transition:width 0.3s}
+.progress-fill-bar{height:100%;background:var(--accent);border-radius:2px;transition:width 0.3s}
 .lessons-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(28px,1fr));gap:4px;margin-top:10px}
 .lesson-dot{width:28px;height:28px;border-radius:50%;border:1px solid var(--border);background:var(--bone2);font-size:10px;color:var(--muted);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all 0.12s;font-weight:500}
 .lesson-dot.done{background:var(--green);border-color:var(--green);color:var(--white)}
 .lesson-dot.current{background:var(--accent);border-color:var(--accent);color:var(--white)}
-.lesson-dot:hover{border-color:var(--border2)}
+.checklist{margin-top:16px}
+.checklist-label{font-size:11px;font-weight:500;letter-spacing:0.08em;text-transform:uppercase;color:var(--muted);margin-bottom:8px}
+.check-item{display:flex;align-items:flex-start;gap:10px;padding:8px 0;border-bottom:1px solid var(--border);cursor:pointer}
+.check-item:last-child{border-bottom:none}
+.check-item input[type=checkbox]{width:15px;height:15px;accent-color:var(--accent);cursor:pointer;flex-shrink:0;margin-top:2px}
+.check-label{font-size:13px;color:var(--text2);line-height:1.4;flex:1}
+.check-item.done .check-label{text-decoration:line-through;color:var(--muted2)}
+.check-meta{font-size:11px;color:var(--muted2)}
 
-/* DIVIDER */
 .divider{border:none;border-top:1px solid var(--border);margin:24px 0}
 
 /* MODES */
@@ -139,7 +176,7 @@ body{background:var(--bone);color:var(--text);font-family:var(--sans);font-size:
 .mode-title{font-size:13px;font-weight:500;color:var(--text);margin-bottom:3px}
 .mode-desc{font-size:11px;color:var(--muted);line-height:1.5}
 
-/* ACTION PANEL */
+/* PANELS */
 .action-panel{background:var(--white);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;margin-top:12px;display:none}
 .action-panel.visible{display:block}
 .panel-header{padding:12px 18px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;background:var(--bone)}
@@ -149,13 +186,21 @@ body{background:var(--bone);color:var(--text);font-family:var(--sans);font-size:
 .panel-body{padding:18px}
 .helper-text{font-size:12px;color:var(--muted);margin-bottom:12px;line-height:1.5}
 
-/* OPTIONS */
+/* NEWS TOPICS */
+.news-section{margin-bottom:14px}
+.news-label{font-size:11px;font-weight:500;letter-spacing:0.06em;text-transform:uppercase;color:var(--muted);margin-bottom:8px}
+.news-item{background:var(--bone);border:1px solid var(--border);border-radius:7px;padding:10px 14px;margin-bottom:6px;cursor:pointer;transition:border-color 0.12s,background 0.12s}
+.news-item:hover{border-color:var(--accent);background:var(--accent-light)}
+.news-item-title{font-size:12px;font-weight:500;color:var(--text);margin-bottom:2px;line-height:1.4}
+.news-item-angle{font-size:11px;color:var(--muted);line-height:1.4}
+.news-loading{font-size:12px;color:var(--muted);font-style:italic;padding:8px 0}
+.news-divider{font-size:11px;color:var(--muted2);margin:10px 0 8px;font-weight:500}
+
 .option-list{display:flex;flex-direction:column;gap:7px}
 .option-btn{background:var(--bone);border:1px solid var(--border);border-radius:7px;padding:11px 14px;color:var(--text);font-family:var(--sans);font-size:13px;cursor:pointer;text-align:left;transition:border-color 0.12s,background 0.12s;line-height:1.5}
 .option-btn:hover{border-color:var(--accent);background:var(--accent-light)}
 .option-tag{font-size:11px;color:var(--muted);display:block;margin-top:2px}
 
-/* OUTPUT */
 .output-box{background:var(--bone);border:1px solid var(--border);border-radius:7px;padding:14px;margin-top:12px;display:none}
 .output-box.visible{display:block}
 .output-label{font-size:10px;font-weight:500;letter-spacing:0.08em;text-transform:uppercase;color:var(--accent);margin-bottom:8px}
@@ -163,7 +208,6 @@ body{background:var(--bone);color:var(--text);font-family:var(--sans);font-size:
 .copy-btn{margin-top:12px;background:var(--white);border:1px solid var(--border2);border-radius:5px;padding:6px 16px;color:var(--text2);font-family:var(--sans);font-size:11px;font-weight:500;cursor:pointer;transition:all 0.12s}
 .copy-btn:hover{border-color:var(--accent);color:var(--accent)}
 
-/* INPUT */
 .sam-input{width:100%;background:var(--bone);border:1px solid var(--border);border-radius:7px;padding:10px 14px;color:var(--text);font-family:var(--sans);font-size:13px;outline:none;margin-top:10px;resize:none;min-height:68px;line-height:1.6}
 .sam-input:focus{border-color:var(--border2);background:var(--white)}
 .sam-input::placeholder{color:var(--muted2)}
@@ -171,6 +215,9 @@ body{background:var(--bone);color:var(--text);font-family:var(--sans);font-size:
 .send-btn:hover{opacity:0.88}
 .thinking{font-size:12px;color:var(--muted);font-style:italic;padding:10px 0 0;display:none}
 .thinking.visible{display:block}
+.spinner{display:inline-block;width:12px;height:12px;border:2px solid var(--border);border-top-color:var(--accent);border-radius:50%;animation:spin 0.7s linear infinite;vertical-align:middle;margin-right:6px}
+@keyframes spin{to{transform:rotate(360deg)}}
+.loading-text{font-size:12px;color:var(--muted);padding:16px 18px;font-style:italic}
 </style>
 </head>
 <body>
@@ -180,7 +227,7 @@ body{background:var(--bone);color:var(--text);font-family:var(--sans);font-size:
 <div class="top-bar">
   <div>
     <div class="sam-name">SAM</div>
-    <div class="sam-tagline">Your daily co-pilot</div>
+    <div class="sam-tagline">Systems Automation Mastermind (S.A.M.)</div>
   </div>
   <div class="date-pill">
     <strong id="dateStr"></strong>
@@ -191,19 +238,87 @@ body{background:var(--bone);color:var(--text);font-family:var(--sans);font-size:
 <!-- GREETING -->
 <div class="greeting-banner">
   <div class="greeting-headline" id="greetingText">Good morning, Fede.</div>
-  <div class="greeting-sub" id="greetingSub">Loading your day...</div>
+  <div class="greeting-sub" id="greetingSub">Connecting to your calendar...</div>
+</div>
+
+<!-- FOCUS BUTTON -->
+<div class="focus-bar">
+  <button class="focus-btn" onclick="getFocus()">
+    <span class="focus-btn-icon">◎</span>
+    <div class="focus-btn-text">
+      <span class="focus-btn-label">SAM suggests</span>
+      <span class="focus-btn-main" id="focusBtnText">What should I focus on right now?</span>
+    </div>
+    <span style="font-size:11px;color:var(--muted)">→</span>
+  </button>
+  <div class="focus-output" id="focusOutput">
+    <div class="focus-output-label">Based on your day, here are your options</div>
+    <div id="focusOptions"></div>
+  </div>
+</div>
+
+<!-- AUTH -->
+<div class="auth-banner" id="authBanner">
+  <div class="auth-title">Connect your Google Calendar</div>
+  <div class="auth-desc">SAM needs one-time permission to read your calendar. You will only need to do this once per browser.</div>
+  <button class="auth-btn" onclick="signIn()">Connect Google Calendar</button>
+</div>
+<div id="signedInBar" style="display:none;margin-bottom:16px;font-size:12px;color:var(--muted)">
+  <span id="signedInEmail"></span>
+  <span class="signout-link" onclick="signOut()">Sign out</span>
+</div>
+
+<!-- MONDAY OVERVIEW -->
+<div id="mondaySection" style="display:none">
+  <div class="section-label">Week ahead</div>
+  <div class="monday-card">
+    <div class="monday-headline">Your week, Fede.</div>
+    <div class="monday-content" id="mondayContent"><span class="monday-loading"><span class="spinner"></span>Generating your weekly overview...</span></div>
+  </div>
 </div>
 
 <!-- SCHEDULE -->
 <div class="section-label">This week</div>
-<div class="card">
-  <div class="tab-bar" id="tabBar"></div>
-  <div id="tabContents"></div>
-  <div class="load-section" id="loadSection"></div>
+<div class="card" id="calCard">
+  <div class="loading-text"><span class="spinner"></span>Loading your calendar...</div>
 </div>
 
-<!-- PREP PANEL (inside card context) -->
-<div id="prepPanelWrap"></div>
+<!-- DEAL PULSE -->
+<div class="section-label">Deal pulse</div>
+<div class="deal-card">
+  <div class="deal-row">
+    <div class="deal-indicator hot"></div>
+    <div style="flex:1">
+      <div class="deal-name">Pepsi — Mercadito Sessions</div>
+      <div class="deal-touch">World Cup 2026 content series · OMD / Gerardo Zavala</div>
+    </div>
+    <div class="deal-meta">Near close<br><span style="color:var(--accent)">Follow up</span></div>
+  </div>
+  <div class="deal-row">
+    <div class="deal-indicator hot"></div>
+    <div style="flex:1">
+      <div class="deal-name">Toyota — World Cup activation</div>
+      <div class="deal-touch">Top 2 partner candidates · social + OLV open</div>
+    </div>
+    <div class="deal-meta">In review<br><span style="color:var(--accent)">Pending</span></div>
+  </div>
+  <div class="deal-row">
+    <div class="deal-indicator warm"></div>
+    <div style="flex:1">
+      <div class="deal-name">Pillsbury — UM/GMI RFP</div>
+      <div class="deal-touch">~$1.3M OLV + Display · Hispanic families</div>
+    </div>
+    <div class="deal-meta">Proposal sent<br><span style="color:var(--amber)">Waiting</span></div>
+  </div>
+  <div class="deal-row">
+    <div class="deal-indicator cold"></div>
+    <div style="flex:1">
+      <div class="deal-name">WPP / Unilever</div>
+      <div class="deal-touch">Multicultural entry point · early stage</div>
+    </div>
+    <div class="deal-meta">Early<br><span style="color:var(--muted2)">Prospecting</span></div>
+  </div>
+</div>
 
 <!-- ALERTS -->
 <div id="alertsSection"></div>
@@ -212,51 +327,33 @@ body{background:var(--bone);color:var(--text);font-family:var(--sans);font-size:
 <div class="section-label">Learning track</div>
 <div class="learning-card">
   <div class="learning-headline">Anthropic course — pick up at Lesson 9</div>
-  <div class="learning-body">You stopped at Lesson 9: How to Research with Claude. That is the most directly applicable lesson to what you are building with SAM. Use your AI block today to finish it — 20 minutes is enough.</div>
+  <div class="learning-body">You stopped at Lesson 9: How to Research with Claude. The most directly applicable lesson to SAM. Use your AI block today — 20 minutes is enough.</div>
   <div class="tag-row">
     <span class="tag tag-course">Anthropic Course</span>
     <span class="tag tag-time">⏱ 20 min</span>
   </div>
   <a href="https://anthropic.skilljar.com/" target="_blank" class="course-link">→ Open course</a>
-
   <div class="course-progress">
     <div class="progress-label-row">
       <span class="progress-label-text">Course progress</span>
       <span class="progress-pct" id="progressPct">0%</span>
     </div>
-    <div class="progress-bar"><div class="progress-fill" id="progressFill" style="width:0%"></div></div>
+    <div class="progress-bar"><div class="progress-fill-bar" id="progressFill" style="width:0%"></div></div>
     <div class="lessons-grid" id="lessonsGrid"></div>
   </div>
-
-  <div class="checklist" id="dailyChecklist">
-    <div style="font-size:11px;font-weight:500;letter-spacing:0.08em;text-transform:uppercase;color:var(--muted);margin-bottom:8px">Today's tasks</div>
+  <div class="checklist">
+    <div class="checklist-label">Today's tasks</div>
     <label class="check-item" id="chk-lesson">
       <input type="checkbox" onchange="toggleCheck('lesson',this)">
-      <div>
-        <div class="check-label">Complete Lesson 9 on Anthropic course</div>
-        <div class="check-meta">anthropic.skilljar.com · 20 min</div>
-      </div>
+      <div><div class="check-label">Complete Lesson 9 on Anthropic course</div><div class="check-meta">anthropic.skilljar.com · 20 min</div></div>
     </label>
     <label class="check-item" id="chk-linkedin">
       <input type="checkbox" onchange="toggleCheck('linkedin',this)">
-      <div>
-        <div class="check-label">Publish LinkedIn post</div>
-        <div class="check-meta">Use SAM's LinkedIn mode below</div>
-      </div>
+      <div><div class="check-label">Publish LinkedIn post</div><div class="check-meta">Use SAM's LinkedIn mode below</div></div>
     </label>
     <label class="check-item" id="chk-outreach">
       <input type="checkbox" onchange="toggleCheck('outreach',this)">
-      <div>
-        <div class="check-label">Run outreach batch</div>
-        <div class="check-meta">AI Agent Lead Gen label in Gmail</div>
-      </div>
-    </label>
-    <label class="check-item" id="chk-webinar">
-      <input type="checkbox" onchange="toggleCheck('webinar',this)">
-      <div>
-        <div class="check-label">Attend Gusto AI webinar tomorrow 10am</div>
-        <div class="check-meta">ABCs of AI for Small Business</div>
-      </div>
+      <div><div class="check-label">Run outreach batch</div><div class="check-meta">AI Agent Lead Gen label in Gmail</div></div>
     </label>
   </div>
 </div>
@@ -269,7 +366,7 @@ body{background:var(--bone);color:var(--text);font-family:var(--sans);font-size:
   <div class="mode-card" onclick="activateMode('linkedin',this)">
     <span class="mode-icon">✦</span>
     <div class="mode-title">LinkedIn post</div>
-    <div class="mode-desc">Pick a topic, get a post in your voice</div>
+    <div class="mode-desc">Live news topics + your voice</div>
   </div>
   <div class="mode-card" onclick="activateMode('outreach',this)">
     <span class="mode-icon">◎</span>
@@ -285,12 +382,13 @@ body{background:var(--bone);color:var(--text);font-family:var(--sans);font-size:
 
 <!-- LINKEDIN PANEL -->
 <div class="action-panel" id="panel-linkedin">
-  <div class="panel-header">
-    <span class="panel-title">LinkedIn post</span>
-    <button class="panel-close" onclick="closePanel('linkedin')">×</button>
-  </div>
+  <div class="panel-header"><span class="panel-title">LinkedIn post</span><button class="panel-close" onclick="closePanel('linkedin')">×</button></div>
   <div class="panel-body">
-    <p class="helper-text">Pick a topic or write your own. SAM writes it in your voice.</p>
+    <div class="news-section">
+      <div class="news-label">Today's news angles <span style="font-weight:400;text-transform:none;letter-spacing:0;color:var(--muted2)">— from live headlines</span></div>
+      <div id="newsTopics"><div class="news-loading"><span class="spinner"></span>Pulling today's headlines...</div></div>
+    </div>
+    <div class="news-divider">Or choose a standing topic:</div>
     <div class="option-list">
       <button class="option-btn" onclick="generatePost('worldcup')">World Cup 2026 — why most brands will miss the real opportunity<span class="option-tag">Industry POV · ~150 words</span></button>
       <button class="option-btn" onclick="generatePost('julieta')">The Julieta Venegas moment — what culture-driven content looks like<span class="option-tag">Behind the scenes · recent content</span></button>
@@ -311,10 +409,7 @@ body{background:var(--bone);color:var(--text);font-family:var(--sans);font-size:
 
 <!-- OUTREACH PANEL -->
 <div class="action-panel" id="panel-outreach">
-  <div class="panel-header">
-    <span class="panel-title">Outreach</span>
-    <button class="panel-close" onclick="closePanel('outreach')">×</button>
-  </div>
+  <div class="panel-header"><span class="panel-title">Outreach</span><button class="panel-close" onclick="closePanel('outreach')">×</button></div>
   <div class="panel-body">
     <p class="helper-text">What kind of outreach today?</p>
     <div class="option-list">
@@ -331,15 +426,12 @@ body{background:var(--bone);color:var(--text);font-family:var(--sans);font-size:
 
 <!-- LEARN PANEL -->
 <div class="action-panel" id="panel-learn">
-  <div class="panel-header">
-    <span class="panel-title">Learn</span>
-    <button class="panel-close" onclick="closePanel('learn')">×</button>
-  </div>
+  <div class="panel-header"><span class="panel-title">Learn</span><button class="panel-close" onclick="closePanel('learn')">×</button></div>
   <div class="panel-body">
     <p class="helper-text">Your active learning tracks. Pick one for today's block.</p>
     <div class="option-list">
-      <button class="option-btn" onclick="getLearning('anthropic')">Anthropic course — Lesson 9: How to Research with Claude<span class="option-tag">20 min · where you left off · anthropic.skilljar.com</span></button>
-      <button class="option-btn" onclick="getLearning('zapier')">Zapier automation — one new workflow idea for MECENAS<span class="option-tag">10 min · ties into tomorrow's webinar</span></button>
+      <button class="option-btn" onclick="getLearning('anthropic')">Anthropic course — Lesson 9: How to Research with Claude<span class="option-tag">20 min · where you left off</span></button>
+      <button class="option-btn" onclick="getLearning('zapier')">Zapier automation — one new workflow idea for MECENAS<span class="option-tag">10 min · ties into the webinar</span></button>
       <button class="option-btn" onclick="getLearning('hubspot')">HubSpot — one feature you are not using yet<span class="option-tag">10 min · pipeline predictability</span></button>
       <button class="option-btn" onclick="getLearning('prompt')">Prompting — one technique to make SAM briefs sharper<span class="option-tag">5 min · applicable today</span></button>
     </div>
@@ -352,179 +444,18 @@ body{background:var(--bone);color:var(--text);font-family:var(--sans);font-size:
 </div>
 
 </div>
+
+<script src="https://accounts.google.com/gsi/client" async defer></script>
 <script>
-// ── CALENDAR DATA (from live Google Calendar pull) ──
-const EVENTS = {
-  'Tue May 19': [
-    {time:'11:30 AM',title:'1:1 Fede / Martin',type:'internal'},
-    {time:'12:30 PM',title:'LinkedIn Post block',type:'block'},
-    {time:'12:30 PM',title:'AI / Automation block',type:'block'},
-    {time:'1:00 PM',title:'Lead / Outreach block',type:'block'},
-    {time:'6:00 PM',title:'Valen recognition / Frost',type:'internal'},
-  ],
-  'Wed May 20': [
-    {time:'10:00 AM',title:'ABCs of AI — Gusto webinar',type:'webinar',link:'https://event.on24.com/wcc/r/5310008/E3758FA0FE64DFFB15DDDC1E935662A7'},
-    {time:'10:00 AM',title:'Zapier AI Playbook webinar',type:'webinar',link:'https://app.livestorm.co/p/48c9ff82-8501-4211-a561-94cf0e601be2/live'},
-    {time:'11:00 AM',title:'Weekly Team Media',type:'internal'},
-    {time:'12:30 PM',title:'AI / Automation block',type:'block'},
-    {time:'4:00 PM',title:'Gra / Fede — Terapia',type:'personal'},
-  ],
-  'Thu May 21': [
-    {time:'7:00 AM',title:'Lezione di italiano / Yuri',type:'personal'},
-    {time:'11:00 AM',title:'Jackie / Fede 1:1',type:'internal'},
-    {time:'11:30 AM',title:'Jueves Once y Media / Emiliano',type:'internal'},
-    {time:'12:00 PM',title:'Pato Rocha — Badabun presentation',type:'external',prep:true},
-    {time:'12:30 PM',title:'AI / Automation block',type:'block'},
-    {time:'3:00 PM',title:'DMV Culver City — hard stop',type:'warning'},
-  ],
-  'Fri May 22': [
-    {time:'All day',title:'Out of office',type:'ooo'},
-    {time:'12:30 PM',title:'AI / Automation block',type:'block'},
-    {time:'3:00 PM',title:'Block — no meetings',type:'block'},
-  ],
-  'Mon May 25': [
-    {time:'7:00 AM',title:'Lezione di italiano',type:'personal'},
-    {time:'11:30 AM',title:'Sales Push Weekly / Airton + Emi',type:'internal'},
-    {time:'12:30 PM',title:'AI / Automation block',type:'block'},
-  ],
-  'Tue May 26': [
-    {time:'11:00 AM',title:'Biweekly: Federico x Airton',type:'internal'},
-    {time:'11:30 AM',title:'1:1 Fede / Martin',type:'internal'},
-    {time:'12:30 PM',title:'LinkedIn Post block',type:'block'},
-    {time:'12:30 PM',title:'AI / Automation block',type:'block'},
-    {time:'1:00 PM',title:'Lead / Outreach block',type:'block'},
-  ],
-};
+const CLIENT_ID = '556036623660-87oqcqptp2fs0a3c922svs6s65n036qo.apps.googleusercontent.com';
+const NEWS_API_KEY = 'd06e1a6a353949f0bc999229394e0e92';
+const SCOPES = 'https://www.googleapis.com/auth/calendar.readonly';
 
-const LOADS = {'Tue May 19':20,'Wed May 20':65,'Thu May 21':75,'Fri May 22':10,'Mon May 25':30,'Tue May 26':45};
+let accessToken = null;
+let calendarEvents = [];
+let tokenClient;
 
-const MEETING_PREPS = {
-  'Pato Rocha — Badabun presentation': `Meeting: Pato Rocha / Badabun + Other Offerings\nThursday May 21 · 12:00 PM · 50 min\nAttendees: Martin, Emiliano, Nestor (Tenmask)\n\nWhat to know going in:\nBadabun is a major Spanish-language digital media network with massive reach on YouTube and social. This is likely a partnership or distribution conversation — they may be pitching their creator/publisher network as an add-on to MECENAS offerings.\n\nKey questions to ask:\n1. What specific inventory or audience segments can Badabun bring that MECENAS does not already cover?\n2. What does the revenue share or partnership structure look like?\n3. How does Badabun's audience overlap with or complement MECENAS's 25M+ monthly U.S. Hispanic reach?\n\nWatch for: vague reach numbers without U.S.-specific breakdowns. Push for U.S. Hispanic audience data specifically, not total Spanish-language audience.`
-};
-
-// ── BUILD TABS ──
-function buildTabs() {
-  const today = getTodayKey();
-  const tabBar = document.getElementById('tabBar');
-  const tabContents = document.getElementById('tabContents');
-  const loadSection = document.getElementById('loadSection');
-
-  const days = Object.keys(EVENTS);
-  let loadHTML = '';
-
-  days.forEach((day, i) => {
-    const isToday = day === today;
-    const shortDay = day.split(' ')[0];
-
-    // tab button
-    const btn = document.createElement('button');
-    btn.className = 'tab-btn' + (isToday ? ' active' : '');
-    btn.textContent = isToday ? 'Today' : shortDay;
-    btn.onclick = () => switchTab(day);
-    btn.id = 'tab-' + day;
-    tabBar.appendChild(btn);
-
-    // tab content
-    const content = document.createElement('div');
-    content.className = 'tab-content' + (isToday ? ' active' : '');
-    content.id = 'content-' + day;
-
-    const events = EVENTS[day];
-    events.forEach(ev => {
-      const row = document.createElement('div');
-      row.className = 'cal-row';
-      const labelColor = isToday ? '' : 'other';
-      let titleClass = 'cal-title';
-      if(ev.type==='block') titleClass += ' block';
-      else if(ev.type==='webinar') titleClass += ' webinar';
-      else if(ev.type==='warning') titleClass += ' warning';
-      else if(ev.type==='ooo') titleClass += ' ooo';
-      else if(ev.type==='external') titleClass += ' prep';
-
-      let titleHTML = `<span class="${titleClass}">${ev.title}</span>`;
-      if(ev.prep) titleHTML += `<span class="prep-badge" onclick="showPrep('${ev.title}')">prep →</span>`;
-      if(ev.link) titleHTML = `<a href="${ev.link}" target="_blank" class="${titleClass}">${ev.title}</a>`;
-
-      row.innerHTML = `<div class="cal-day-label ${labelColor}">${isToday?'·':''}</div><div class="cal-events"><div class="cal-event"><span class="cal-time">${ev.time}</span><div>${titleHTML}</div></div></div>`;
-      content.appendChild(row);
-    });
-
-    // prep panel slot
-    const prepSlot = document.createElement('div');
-    prepSlot.className = 'prep-panel';
-    prepSlot.id = 'prep-' + day;
-    prepSlot.innerHTML = '<span class="prep-close" onclick="closePrep()">close ×</span><div class="prep-panel-title">Meeting prep</div><div class="prep-content" id="prep-content-' + day + '"></div>';
-    content.appendChild(prepSlot);
-
-    tabContents.appendChild(content);
-
-    // load row
-    const load = LOADS[day] || 0;
-    const loadColor = load < 40 ? '' : load < 65 ? 'amber' : 'red';
-    const loadLabel = load < 40 ? 'Light' : load < 65 ? 'Moderate' : 'Busy';
-    const loadTextColor = load < 40 ? 'var(--green)' : load < 65 ? 'var(--amber)' : 'var(--red)';
-    loadHTML += `<div class="load-row" style="display:${isToday?'flex':'none'}" id="load-${day}"><span class="load-label">${isToday?'Today':day}</span><div class="load-bar"><div class="load-fill ${loadColor}" style="width:${load}%"></div></div><span class="load-text" style="color:${loadTextColor}">${loadLabel}</span></div>`;
-  });
-
-  loadSection.innerHTML = loadHTML;
-}
-
-function switchTab(day) {
-  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-  document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
-  document.querySelectorAll('.load-row').forEach(r => r.style.display='none');
-  document.getElementById('tab-' + day).classList.add('active');
-  document.getElementById('content-' + day).classList.add('active');
-  const lr = document.getElementById('load-' + day);
-  if(lr) lr.style.display='flex';
-}
-
-function showPrep(title) {
-  const today = getTodayKey();
-  const panel = document.getElementById('prep-' + today);
-  const content = document.getElementById('prep-content-' + today);
-  if(!panel) return;
-  content.textContent = MEETING_PREPS[title] || 'Prep note not available for this meeting.';
-  panel.classList.add('visible');
-}
-
-function closePrep() {
-  document.querySelectorAll('.prep-panel').forEach(p => p.classList.remove('visible'));
-}
-
-// ── ALERTS ──
-function buildAlerts() {
-  const section = document.getElementById('alertsSection');
-  const today = getTodayKey();
-  let html = '<div class="section-label" style="margin-top:28px">Upcoming alerts</div>';
-
-  if(today === 'Tue May 19' || today === 'Wed May 20') {
-    html += `<div class="alert-card"><div class="alert-title">ABCs of AI for Small Business — Gusto</div><div class="alert-desc">Focus on where to start with AI and reducing operational overhead for SMBs.</div><div class="alert-question">Walk in asking: what is one thing I can automate at MECENAS in the next 30 days?</div><div class="alert-time">Wed May 20 · 10:00 AM PT · 60 min</div></div>`;
-    html += `<div class="alert-card amber-card"><div class="alert-title">Zapier AI Playbook — How 8 people run a $5B operation</div><div class="alert-desc">Directly relevant to SAM. Automation patterns for lean teams. Note: overlaps with Gusto webinar — check if one is recorded.</div><div class="alert-question amber-q">Walk in asking: which manual process at MECENAS happens more than twice a week?</div><div class="alert-time">Wed May 20 · 10:00 AM PT</div></div>`;
-  }
-
-  if(today === 'Tue May 19' || today === 'Wed May 20' || today === 'Thu May 21') {
-    html += `<div class="alert-card red-card"><div class="alert-title">Pato Rocha / Badabun — prep before Thursday noon</div><div class="alert-desc">External presentation Thursday May 21 at 12pm. Click the prep badge on the Thursday tab to see your briefing notes.</div><div class="alert-time">Thu May 21 · 12:00 PM · with Martin, Emiliano, Nestor</div></div>`;
-  }
-
-  if(today === 'Thu May 21') {
-    html += `<div class="alert-card amber-card"><div class="alert-title">DMV Culver City — 3:00 PM hard stop</div><div class="alert-desc">Confirmation #264888156. Bring: registration renewal notice, smog cert if needed, payment.</div><div class="alert-time">Thu May 21 · 3:00 PM · Culver City DMV</div></div>`;
-  }
-
-  html += `<div class="alert-card" style="border-left-color:var(--muted2)"><div class="alert-title" style="color:var(--muted)">Pay OSLA — reminder</div><div class="alert-desc" style="color:var(--muted)">Recurring payment due Wed May 20.</div><div class="alert-time">Wed May 20</div></div>`;
-
-  section.innerHTML = html;
-}
-
-// ── CLOCK + GREETING ──
-function getTodayKey() {
-  const now = new Date();
-  const days = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
-  const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-  const key = days[now.getDay()] + ' ' + months[now.getMonth()] + ' ' + now.getDate();
-  return Object.keys(EVENTS).find(k => k === key) || Object.keys(EVENTS)[0];
-}
-
+// ── CLOCK ──
 function updateClock() {
   const now = new Date();
   const days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
@@ -532,165 +463,548 @@ function updateClock() {
   document.getElementById('dateStr').textContent = days[now.getDay()] + ', ' + months[now.getMonth()] + ' ' + now.getDate();
   const h = now.getHours(), m = now.getMinutes();
   document.getElementById('timeStr').textContent = (h%12||12) + ':' + String(m).padStart(2,'0') + ' ' + (h>=12?'PM':'AM') + ' PT';
-  const greet = h<12?'Good morning':h<17?'Good afternoon':'Good evening';
-  document.getElementById('greetingText').textContent = greet + ', Fede.';
-
-  const todayKey = getTodayKey();
-  const load = LOADS[todayKey] || 0;
-  const sub = load < 40
-    ? 'Today is light — good day to get work done. One real meeting, then your blocks.'
-    : load < 65
-    ? 'Moderate day ahead — a few meetings but space to breathe.'
-    : 'Busy day. Protect your focus blocks and prep for external meetings.';
-  document.getElementById('greetingSub').textContent = sub;
+  document.getElementById('greetingText').textContent = (h<12?'Good morning':h<17?'Good afternoon':'Good evening') + ', Fede.';
 }
+updateClock();
+setInterval(updateClock, 60000);
 
-// ── LESSON TRACKER ──
-const TOTAL_LESSONS = 14;
-function buildLessons() {
-  const grid = document.getElementById('lessonsGrid');
-  const saved = JSON.parse(localStorage.getItem('sam-lessons') || '{}');
-  grid.innerHTML = '';
-  let done = 0;
-  for(let i=1; i<=TOTAL_LESSONS; i++) {
-    const isDone = saved[i] === true;
-    const isCurrent = i === 9 && !isDone;
-    if(isDone) done++;
-    const dot = document.createElement('div');
-    dot.className = 'lesson-dot' + (isDone?' done':'') + (isCurrent?' current':'');
-    dot.textContent = i;
-    dot.title = 'Lesson ' + i + (isDone?' — done':'');
-    dot.onclick = () => toggleLesson(i);
-    grid.appendChild(dot);
+// ── AUTH ──
+function initAuth() {
+  const saved = localStorage.getItem('sam-token');
+  const expiry = localStorage.getItem('sam-token-expiry');
+  if(saved && expiry && Date.now() < parseInt(expiry)) {
+    accessToken = saved;
+    showSignedIn();
+    loadCalendar();
+  } else {
+    showAuthBanner();
   }
-  const pct = Math.round((done/TOTAL_LESSONS)*100);
-  document.getElementById('progressPct').textContent = pct + '%';
-  document.getElementById('progressFill').style.width = pct + '%';
 }
 
-function toggleLesson(n) {
-  const saved = JSON.parse(localStorage.getItem('sam-lessons') || '{}');
-  saved[n] = !saved[n];
-  localStorage.setItem('sam-lessons', JSON.stringify(saved));
-  buildLessons();
+function showAuthBanner() {
+  document.getElementById('authBanner').classList.add('visible');
+  document.getElementById('calCard').innerHTML = '<div class="loading-text" style="font-style:normal">Sign in above to load your calendar.</div>';
+  document.getElementById('greetingSub').textContent = 'Connect your calendar to get started.';
 }
 
-// ── CHECKLIST ──
-function toggleCheck(key, el) {
-  const saved = JSON.parse(localStorage.getItem('sam-checks') || '{}');
-  const today = new Date().toDateString();
-  if(!saved[today]) saved[today] = {};
-  saved[today][key] = el.checked;
-  localStorage.setItem('sam-checks', JSON.stringify(saved));
-  const item = document.getElementById('chk-' + key);
-  if(el.checked) item.classList.add('done'); else item.classList.remove('done');
+function showSignedIn() {
+  document.getElementById('authBanner').classList.remove('visible');
+  document.getElementById('signedInBar').style.display = 'block';
+  document.getElementById('signedInEmail').textContent = '● Connected as federico@wearecocina.com';
 }
 
-function restoreChecks() {
-  const saved = JSON.parse(localStorage.getItem('sam-checks') || '{}');
-  const today = new Date().toDateString();
-  const todayChecks = saved[today] || {};
-  Object.keys(todayChecks).forEach(key => {
-    const item = document.getElementById('chk-' + key);
-    if(!item) return;
-    const cb = item.querySelector('input');
-    if(todayChecks[key]) { cb.checked = true; item.classList.add('done'); }
+function signIn() {
+  tokenClient = google.accounts.oauth2.initTokenClient({
+    client_id: CLIENT_ID,
+    scope: SCOPES,
+    callback: (resp) => {
+      if(resp.error) return;
+      accessToken = resp.access_token;
+      localStorage.setItem('sam-token', accessToken);
+      localStorage.setItem('sam-token-expiry', Date.now() + resp.expires_in * 1000);
+      showSignedIn();
+      loadCalendar();
+    }
   });
+  tokenClient.requestAccessToken({prompt:'consent'});
 }
 
-// ── PANELS ──
-function activateMode(mode, el) {
-  document.querySelectorAll('.mode-card').forEach(c => c.classList.remove('active'));
-  el.classList.add('active');
-  document.querySelectorAll('.action-panel').forEach(p => p.classList.remove('visible'));
-  document.getElementById('panel-' + mode).classList.add('visible');
-  setTimeout(() => document.getElementById('panel-' + mode).scrollIntoView({behavior:'smooth',block:'nearest'}), 50);
-}
-function closePanel(mode) {
-  document.getElementById('panel-' + mode).classList.remove('visible');
-  document.querySelectorAll('.mode-card').forEach(c => c.classList.remove('active'));
+function signOut() {
+  if(accessToken) google.accounts.oauth2.revoke(accessToken, ()=>{});
+  accessToken = null;
+  localStorage.removeItem('sam-token');
+  localStorage.removeItem('sam-token-expiry');
+  showAuthBanner();
 }
 
-// ── OUTREACH ──
-const outreachMessages = {
-  followup:'Tell me in this chat: "Run follow-up outreach." I will check your AI Agent Lead Gen Gmail label, find unanswered threads, and create drafts in your voice — World Cup 2026 hook, no dashes, no fabricated claims. You review and send.',
-  new:'Give me: contact name, company, role, and how you know them (cold, referral name, or event). I will write the brief and the draft.',
-  warmup:'Give me: contact name and what the meeting is about. I will write a short warm note to send beforehand.'
-};
-function showOutreachInfo(type) {
-  document.getElementById('outreach-output-content').textContent = outreachMessages[type];
-  document.getElementById('outreach-output').classList.add('visible');
+// ── CALENDAR ──
+async function loadCalendar() {
+  const now = new Date();
+  const start = new Date(now); start.setHours(0,0,0,0);
+  const end = new Date(start); end.setDate(end.getDate() + 7);
+  try {
+    const res = await fetch(`https://www.googleapis.com/calendar/v3/calendars/primary/events?timeMin=${start.toISOString()}&timeMax=${end.toISOString()}&singleEvents=true&orderBy=startTime&maxResults=80`, {
+      headers: { Authorization: 'Bearer ' + accessToken }
+    });
+    if(res.status === 401) { showAuthBanner(); return; }
+    const data = await res.json();
+    calendarEvents = data.items || [];
+    renderCalendar(calendarEvents, now);
+    buildAlerts(calendarEvents, now);
+    updateGreetingSub(calendarEvents, now);
+    if(now.getDay() === 1) buildMondayOverview(calendarEvents, now);
+  } catch(e) {
+    document.getElementById('calCard').innerHTML = '<div class="loading-text" style="color:var(--red)">Could not load calendar. Try refreshing.</div>';
+  }
 }
 
-// ── LEARNING ──
-const learningTasks = {
-  anthropic:`Go to anthropic.skilljar.com and pick up at Lesson 9: How to Research with Claude.\n\nSet a 20-minute timer. Finish it. Come back and tell SAM one thing you learned — I will help you apply it to something real at MECENAS today.\n\nClick a lesson number below to mark it done as you go.`,
-  zapier:`Before tomorrow's Zapier webinar, write down one manual process at MECENAS that happens more than twice a week.\n\nExamples: pulling Gmail threads for outreach review, updating a contact sheet after a call, sending a weekly update.\n\nCome back after the webinar and tell me what it is. I will help you build the Zap.`,
-  hubspot:`One HubSpot feature worth 20 minutes: Contact Scoring.\n\nLog in → Contacts → Lead Scoring. Set up 3 simple rules this week based on email opens and link clicks. Then review your top 5 scored contacts every Monday. That is your pipeline review done in 10 minutes.`,
-  prompt:`The biggest upgrade to SAM briefs: constraints over length.\n\nInstead of: "write a follow-up to someone at OMD"\n\nWrite: "cold follow-up, CPG accounts at OMD, no response 6 weeks, World Cup 2026 hook, 3 sentences, no dashes"\n\nMore constraints = sharper output. Try it on the next brief today.`
-};
-function getLearning(type) {
-  document.getElementById('learn-thinking').classList.add('visible');
-  setTimeout(() => {
-    document.getElementById('learn-thinking').classList.remove('visible');
-    document.getElementById('learn-output-content').textContent = learningTasks[type];
-    document.getElementById('learn-output').classList.add('visible');
-  }, 600);
+function classifyEvent(ev) {
+  const t = (ev.summary||'').toLowerCase();
+  if(ev.eventType === 'outOfOffice') return 'ooo';
+  if(t.includes('webinar')||t.includes('on24')||t.includes('zapier')||t.includes('gusto')||t.includes('abc of')||t.includes('livestorm')) return 'webinar';
+  if(t.includes('linkedin')||t.includes('ai /')||t.includes('automation')||t.includes('lead / out')||t.includes('block - no')) return 'block';
+  if(t.includes('dmv')||t.includes('hard stop')) return 'warning';
+  const external = (ev.attendees||[]).some(a => a.email && !a.email.includes('wearecocina') && !a.email.includes('mecenasgroup') && !a.organizer && a.email !== 'adops@wearecocina.com');
+  if(external) return 'external';
+  return 'internal';
 }
 
-// ── LINKEDIN VIA CLAUDE API ──
-const topics = {
-  worldcup:`Write a short LinkedIn post from Federico Gagliardone, founder of MECENAS Media, a multicultural media company reaching 25M+ U.S. Hispanics monthly. The angle: World Cup 2026 is the biggest Hispanic cultural moment in a generation and most brands are about to treat it like a sports buy — they will miss what actually matters. Tone: sharp, confident industry POV, not salesy. First person. 3 short paragraphs max. No hashtags. No em dashes or double hyphens of any kind. Human, not corporate.`,
-  julieta:`Write a short LinkedIn post from Federico Gagliardone, founder of MECENAS Media. He is sharing a proud moment: Julieta Venegas just sat down with COCINA for Fit Check Food Check — talking about Tijuana, vintage fashion, motherhood, and the music that shaped her. She has 19M Spotify monthly listeners. Billboard named her the 2026 Latin Women in Music Artistic Excellence Award recipient. NPR, Rolling Stone, and Billboard all covered her new album the same week. Genuine and proud, not a press release. Short. Human. No em dashes or double hyphens of any kind.`,
-  hispanic:`Write a short LinkedIn post from Federico Gagliardone, founder of MECENAS Media. The angle: there is a real difference between reaching Hispanic audiences and actually connecting with them. Most brands do the former and think they did the latter. Tone: direct and informed, someone who builds inside the culture not around it. 3 short paragraphs max. No em dashes or double hyphens of any kind.`,
-  ai:`Write a short LinkedIn post from Federico Gagliardone, founder of a lean multicultural media company. The angle: using AI to run a small company in 2026 — not perfectly, not fully automated, but in a genuinely useful way. Honest, a little self-aware, not hype. 3 short paragraphs max. No em dashes or double hyphens of any kind. Conversational and human.`
-};
-async function generatePost(type){ await callClaude(topics[type],'linkedin'); }
-async function generateCustomPost(){
-  const v = document.getElementById('linkedinCustom').value.trim();
-  if(!v) return;
-  await callClaude(`Write a short LinkedIn post from Federico Gagliardone, founder of MECENAS Media, reaching 25M+ U.S. Hispanics monthly. Tone: human, warm, direct, not salesy. The angle: ${v}. 3 short paragraphs max. No em dashes or double hyphens of any kind.`, 'linkedin');
+function calcLoad(events) {
+  const real = events.filter(e => {
+    const t = (e.summary||'').toLowerCase();
+    return e.start.dateTime && !t.includes('block') && !t.includes('linkedin') && !t.includes('automation') && !t.includes('lead / out') && !t.includes('lezione');
+  });
+  return Math.min(real.length * 18, 90);
 }
-async function callClaude(prompt, mode) {
-  const thinking = document.getElementById(mode+'-thinking');
-  const outputBox = document.getElementById(mode+'-output');
-  const outputContent = document.getElementById(mode+'-output-content');
-  thinking.classList.add('visible');
-  outputBox.classList.remove('visible');
-  outputContent.textContent = '';
+
+function renderCalendar(events, now) {
+  const days = [];
+  for(let i=0;i<7;i++) {
+    const d = new Date(now); d.setDate(d.getDate()+i); d.setHours(0,0,0,0);
+    days.push({date:new Date(d), key:d.toDateString(), events:[]});
+  }
+  events.forEach(ev => {
+    const s = ev.start.dateTime ? new Date(ev.start.dateTime) : new Date(ev.start.date + 'T00:00:00');
+    const k = new Date(s.getFullYear(),s.getMonth(),s.getDate()).toDateString();
+    const day = days.find(d=>d.key===k);
+    if(day) day.events.push(ev);
+  });
+
+  const calCard = document.getElementById('calCard');
+  calCard.innerHTML = '';
+  const tabBar = document.createElement('div'); tabBar.className='tab-bar';
+  const tabContents = document.createElement('div');
+  const loadSection = document.createElement('div'); loadSection.className='load-section';
+
+  days.forEach(({date,key,events:evs},i) => {
+    const isToday = i===0;
+    const dayName = isToday ? 'Today' : date.toLocaleDateString('en-US',{weekday:'short'});
+    const monthDay = date.toLocaleDateString('en-US',{month:'short',day:'numeric'});
+
+    const tab = document.createElement('button');
+    tab.className = 'tab-btn'+(isToday?' active':'');
+    tab.innerHTML = `${dayName}<br><span style="font-size:10px;font-weight:400;color:var(--muted2)">${monthDay}</span>`;
+    tab.id = 'tab-'+key;
+    tab.onclick = ()=>switchTab(key,days);
+    tabBar.appendChild(tab);
+
+    const content = document.createElement('div');
+    content.className = 'tab-content'+(isToday?' active':'');
+    content.id = 'content-'+key;
+
+    if(evs.length===0) {
+      content.innerHTML = '<div class="cal-empty">No events scheduled.</div>';
+    } else {
+      evs.forEach(ev => {
+        const title = ev.summary||'(no title)';
+        const isAllDay = !ev.start.dateTime;
+        const startDt = isAllDay ? null : new Date(ev.start.dateTime);
+        const timeStr = isAllDay ? 'All day' : startDt.toLocaleTimeString('en-US',{hour:'numeric',minute:'2-digit'});
+        const type = classifyEvent(ev);
+        const isExternal = type === 'external';
+
+        const row = document.createElement('div'); row.className='cal-row';
+        const prepBtn = isExternal ? `<button class="prep-badge" onclick="generateMeetingPrep('${key}','${title.replace(/'/g,"\\'").replace(/"/g,'&quot;')}','${(ev.attendees||[]).map(a=>a.email).join(',').replace(/'/g,"\\'")}')">prep →</button>` : '';
+        row.innerHTML = `<div class="cal-dot ${type}"></div><div class="cal-events"><div class="cal-event"><span class="cal-time">${timeStr}</span><span class="cal-title ${type}">${title}${prepBtn}</span></div></div>`;
+        content.appendChild(row);
+      });
+    }
+
+    const prepPanel = document.createElement('div');
+    prepPanel.className='prep-panel'; prepPanel.id='prep-'+key;
+    prepPanel.innerHTML=`<div class="prep-panel-header"><span class="prep-panel-title">Meeting prep</span><button class="prep-close" onclick="closePrep()">close ×</button></div><div class="prep-content" id="prep-content-${key}"></div>`;
+    content.appendChild(prepPanel);
+    tabContents.appendChild(content);
+
+    const load = calcLoad(evs);
+    const fillColor = load<35?'var(--green)':load<65?'var(--amber)':'var(--red)';
+    const loadLabel = load<35?'Light':load<65?'Moderate':'Busy';
+    const labelColor = load<35?'var(--green)':load<65?'var(--amber)':'var(--red)';
+    const loadRow = document.createElement('div');
+    loadRow.className='load-row'; loadRow.id='load-'+key;
+    loadRow.style.display = isToday?'flex':'none';
+    loadRow.innerHTML=`<span class="load-label">${isToday?'Today':dayName}</span><div class="load-bar"><div class="load-fill" style="width:${load}%;background:${fillColor}"></div></div><span style="font-size:11px;color:${labelColor};min-width:52px;text-align:right">${loadLabel}</span>`;
+    loadSection.appendChild(loadRow);
+  });
+
+  calCard.appendChild(tabBar);
+  calCard.appendChild(tabContents);
+  calCard.appendChild(loadSection);
+}
+
+function switchTab(key, days) {
+  days.forEach(({key:k}) => {
+    const tab=document.getElementById('tab-'+k);
+    const content=document.getElementById('content-'+k);
+    const load=document.getElementById('load-'+k);
+    if(tab) tab.classList.remove('active');
+    if(content) content.classList.remove('active');
+    if(load) load.style.display='none';
+  });
+  document.getElementById('tab-'+key).classList.add('active');
+  document.getElementById('content-'+key).classList.add('active');
+  const lr=document.getElementById('load-'+key);
+  if(lr) lr.style.display='flex';
+}
+
+// ── AI MEETING PREP ──
+async function generateMeetingPrep(dayKey, title, attendees) {
+  closePrep();
+  const panel = document.getElementById('prep-'+dayKey);
+  const content = document.getElementById('prep-content-'+dayKey);
+  if(!panel) return;
+  content.innerHTML = '<span class="prep-generating"><span class="spinner"></span>Generating your briefing...</span>';
+  panel.classList.add('visible');
+  panel.scrollIntoView({behavior:'smooth',block:'nearest'});
+
+  const prompt = `You are SAM, a chief of staff AI for Federico Gagliardone, founder of MECENAS Media, a multicultural media company reaching 25M+ U.S. Hispanics monthly.
+
+Federico has an upcoming meeting:
+Title: ${title}
+Attendees: ${attendees}
+
+Generate a concise meeting prep brief with these sections:
+1. Who is this / what do you know about them (2-3 sentences max, based on what can be inferred from the name and context)
+2. What Federico likely wants from this meeting (1-2 sentences)
+3. Three sharp questions to ask
+4. One thing to watch out for
+
+Keep it under 200 words total. Direct, no fluff. No em dashes.`;
+
   try {
     const res = await fetch('https://api.anthropic.com/v1/messages',{
       method:'POST',
       headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:1000,messages:[{role:'user',content:prompt}]})
+      body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:400,messages:[{role:'user',content:prompt}]})
     });
     const data = await res.json();
-    const text = data.content?.find(b=>b.type==='text')?.text || 'Something went wrong. Try again.';
-    thinking.classList.remove('visible');
-    outputContent.textContent = text;
-    outputBox.classList.add('visible');
+    const text = data.content?.find(b=>b.type==='text')?.text || 'Could not generate prep. Try again.';
+    content.textContent = text;
   } catch {
-    thinking.classList.remove('visible');
-    outputContent.textContent = 'Could not reach Claude. Check your connection.';
-    outputBox.classList.add('visible');
+    content.textContent = 'Could not generate prep. Check your connection.';
   }
 }
+
+function closePrep() {
+  document.querySelectorAll('.prep-panel').forEach(p=>p.classList.remove('visible'));
+}
+
+// ── MONDAY OVERVIEW ──
+async function buildMondayOverview(events, now) {
+  document.getElementById('mondaySection').style.display='block';
+  const end = new Date(now); end.setDate(end.getDate()+5);
+  const weekEvents = events.filter(e=>{
+    const s = e.start.dateTime ? new Date(e.start.dateTime) : new Date(e.start.date+'T00:00:00');
+    return s >= now && s <= end;
+  }).map(e=>`- ${e.summary||'untitled'} (${e.start.dateTime ? new Date(e.start.dateTime).toLocaleDateString('en-US',{weekday:'short',hour:'numeric',minute:'2-digit'}) : 'all day'})`).join('\n');
+
+  const prompt = `You are SAM, chief of staff AI for Federico Gagliardone, founder of MECENAS Media. It is Monday morning.
+
+This week's calendar:
+${weekEvents || 'No events found.'}
+
+Active deals:
+- Pepsi Mercadito Sessions — near close, World Cup 2026 content series
+- Toyota World Cup activation — top 2 partner candidate, pending
+- Pillsbury RFP — ~$1.3M, proposal sent, waiting
+- WPP/Unilever — early prospecting
+
+Write a Monday morning overview for Federico. 3 short paragraphs max:
+1. What kind of week it looks like (meeting load, key moments)
+2. The one deal or opportunity that deserves the most attention this week and why
+3. One practical suggestion for how to use his time well this week
+
+Warm but direct. Under 120 words. No em dashes. No bullet points in the response — prose only.`;
+
+  try {
+    const res = await fetch('https://api.anthropic.com/v1/messages',{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:300,messages:[{role:'user',content:prompt}]})
+    });
+    const data = await res.json();
+    const text = data.content?.find(b=>b.type==='text')?.text || 'Could not generate overview.';
+    document.getElementById('mondayContent').textContent = text;
+  } catch {
+    document.getElementById('mondayContent').textContent = 'Could not generate weekly overview. Try refreshing.';
+  }
+}
+
+// ── NEWS TOPICS ──
+async function loadNewsTopics() {
+  const container = document.getElementById('newsTopics');
+  try {
+    const queries = ['Hispanic marketing multicultural', 'World Cup 2026 brands', 'Latino media content'];
+    const allArticles = [];
+
+    for(const q of queries) {
+      const res = await fetch(`https://newsapi.org/v2/everything?q=${encodeURIComponent(q)}&language=en&sortBy=publishedAt&pageSize=3&apiKey=${NEWS_API_KEY}`);
+      const data = await res.json();
+      if(data.articles) allArticles.push(...data.articles);
+    }
+
+    const unique = allArticles.filter((a,i,arr) => a.title && !a.title.includes('[Removed]') && arr.findIndex(b=>b.title===a.title)===i).slice(0,4);
+
+    if(unique.length === 0) {
+      container.innerHTML = '<div class="news-loading">No fresh headlines today. Use a standing topic below.</div>';
+      return;
+    }
+
+    const prompt = `You are SAM, a chief of staff AI for Federico Gagliardone, founder of MECENAS Media (multicultural media, 25M+ U.S. Hispanics monthly).
+
+Here are today's headlines:
+${unique.map((a,i)=>`${i+1}. "${a.title}" — ${a.source.name}`).join('\n')}
+
+For each headline, write one sentence describing a LinkedIn post angle Federico could take as a multicultural media founder. Format as JSON array:
+[{"headline":"...(short version)","angle":"...one sentence post angle"}]
+
+Only return valid JSON, nothing else.`;
+
+    const claudeRes = await fetch('https://api.anthropic.com/v1/messages',{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:400,messages:[{role:'user',content:prompt}]})
+    });
+    const claudeData = await claudeRes.json();
+    const raw = claudeData.content?.find(b=>b.type==='text')?.text||'[]';
+    const angles = JSON.parse(raw.replace(/```json|```/g,'').trim());
+
+    container.innerHTML = angles.map((a,i) => `
+      <div class="news-item" onclick="generatePostFromNews('${a.headline.replace(/'/g,"\\'").replace(/"/g,'&quot;')}','${a.angle.replace(/'/g,"\\'").replace(/"/g,'&quot;')}')">
+        <div class="news-item-title">${a.headline}</div>
+        <div class="news-item-angle">Angle: ${a.angle}</div>
+      </div>`).join('');
+
+  } catch(e) {
+    container.innerHTML = '<div class="news-loading">Could not load news. Use a standing topic below.</div>';
+  }
+}
+
+async function generatePostFromNews(headline, angle) {
+  const prompt = `Write a short LinkedIn post from Federico Gagliardone, founder of MECENAS Media, reaching 25M+ U.S. Hispanics monthly.
+
+He wants to comment on this news angle: ${angle}
+Related to: ${headline}
+
+Tone: sharp, human, direct POV from inside the multicultural media industry. Not salesy. First person. 3 short paragraphs max. No em dashes or double hyphens. No hashtag overload.`;
+  await callClaude(prompt, 'linkedin');
+}
+
+// ── FOCUS SUGGESTION ──
+function getFocus() {
+  const output = document.getElementById('focusOutput');
+  const optionsEl = document.getElementById('focusOptions');
+  const now = new Date();
+  const h = now.getHours();
+
+  const todayKey = new Date(); todayKey.setHours(0,0,0,0);
+  const todayEvents = calendarEvents.filter(e => {
+    const s = e.start.dateTime ? new Date(e.start.dateTime) : null;
+    return s && s >= todayKey && s.toDateString() === now.toDateString();
+  });
+
+  const nextMeeting = todayEvents.find(e => {
+    const s = new Date(e.start.dateTime);
+    return s > now && (s - now) < 60*60*1000;
+  });
+
+  const load = calcLoad(todayEvents);
+  const options = [];
+
+  if(nextMeeting) {
+    const mins = Math.round((new Date(nextMeeting.start.dateTime) - now) / 60000);
+    options.push(`<div class="focus-option"><strong>Prep for ${nextMeeting.summary}</strong> — you have ${mins} minutes. Click prep on the calendar above.</div>`);
+  }
+
+  if(h >= 9 && h < 13) {
+    options.push(`<div class="focus-option"><strong>Run your outreach batch</strong> — mornings get the best reply rates. Open the Outreach mode below.</div>`);
+  }
+
+  if(h >= 12 && h < 14) {
+    options.push(`<div class="focus-option"><strong>Post on LinkedIn</strong> — midday posts get strong engagement. Open the LinkedIn mode and pick a topic.</div>`);
+  }
+
+  if(load < 35) {
+    options.push(`<div class="focus-option"><strong>Use this light day for learning</strong> — finish Lesson 9 on the Anthropic course. Set a 20-minute timer now.</div>`);
+  }
+
+  if(h >= 15) {
+    options.push(`<div class="focus-option"><strong>Prep for tomorrow</strong> — check the calendar tab for tomorrow's meetings and generate prep briefs now while you have time.</div>`);
+  }
+
+  if(options.length === 0) {
+    options.push(`<div class="focus-option"><strong>Clear your head</strong> — no obvious priority right now. Good time to review your deal pulse above and send one follow-up.</div>`);
+  }
+
+  optionsEl.innerHTML = options.join('');
+  output.classList.add('visible');
+}
+
+// ── ALERTS ──
+function buildAlerts(events, now) {
+  const section = document.getElementById('alertsSection');
+  const keywords = ['webinar','gusto','zapier','abc of ai','dmv','osla'];
+  const relevant = events.filter(e => {
+    const t = (e.summary||'').toLowerCase();
+    return keywords.some(k=>t.includes(k));
+  });
+  if(relevant.length === 0) { section.innerHTML=''; return; }
+
+  let html = '<div class="section-label" style="margin-top:28px">Alerts</div>';
+  relevant.forEach(ev => {
+    const t = (ev.summary||'').toLowerCase();
+    const start = ev.start.dateTime ? new Date(ev.start.dateTime) : null;
+    const timeStr = start ? start.toLocaleDateString('en-US',{weekday:'short',month:'short',day:'numeric'}) + ' · ' + start.toLocaleTimeString('en-US',{hour:'numeric',minute:'2-digit'}) : '';
+    if(t.includes('gusto')||t.includes('abc of ai')) {
+      html+=`<div class="alert-card"><div class="alert-title">${ev.summary}</div><div class="alert-desc">Focus on where to start with AI and reducing operational overhead for SMBs.</div><div class="alert-question">Walk in asking: what is one thing I can automate at MECENAS in the next 30 days?</div><div class="alert-time">${timeStr}</div></div>`;
+    } else if(t.includes('zapier')) {
+      html+=`<div class="alert-card amber-card"><div class="alert-title">${ev.summary}</div><div class="alert-desc">Automation patterns for lean teams. Check if this overlaps with another webinar — one may be recorded.</div><div class="alert-question amber-q">Walk in asking: which manual process at MECENAS happens more than twice a week?</div><div class="alert-time">${timeStr}</div></div>`;
+    } else if(t.includes('dmv')) {
+      html+=`<div class="alert-card amber-card"><div class="alert-title">DMV — hard stop</div><div class="alert-desc">Confirmation #264888156. Bring: registration renewal notice, smog cert if needed, payment.</div><div class="alert-time">${timeStr}</div></div>`;
+    } else if(t.includes('osla')) {
+      html+=`<div class="alert-card muted-card"><div class="alert-title" style="color:var(--muted)">Pay OSLA — reminder</div><div class="alert-time">${timeStr}</div></div>`;
+    }
+  });
+  section.innerHTML = html;
+}
+
+function updateGreetingSub(events, now) {
+  const todayStr = new Date(now.getFullYear(),now.getMonth(),now.getDate()).toDateString();
+  const todayEvs = events.filter(e=>{
+    const s=e.start.dateTime?new Date(e.start.dateTime):new Date(e.start.date+'T00:00:00');
+    return new Date(s.getFullYear(),s.getMonth(),s.getDate()).toDateString()===todayStr;
+  });
+  const load = calcLoad(todayEvs);
+  const h = now.getHours();
+  let sub = load<35 ? 'Light day — good time to focus on outreach and learning.' : load<65 ? 'Moderate day — a few meetings but space to breathe.' : 'Busy day — protect your focus blocks.';
+  if(h>=17) sub='Wrapping up. Good time to prep for tomorrow.';
+  if(now.getDay()===1) sub='It is Monday. Your weekly overview is below.';
+  document.getElementById('greetingSub').textContent = sub;
+}
+
+// ── LESSONS ──
+function buildLessons() {
+  const grid = document.getElementById('lessonsGrid');
+  const saved = JSON.parse(localStorage.getItem('sam-lessons')||'{}');
+  grid.innerHTML=''; let done=0; const total=14;
+  for(let i=1;i<=total;i++){
+    const isDone=saved[i]===true, isCurrent=i===9&&!isDone;
+    if(isDone) done++;
+    const dot=document.createElement('div');
+    dot.className='lesson-dot'+(isDone?' done':'')+(isCurrent?' current':'');
+    dot.textContent=i; dot.title='Lesson '+i+(isDone?' — done':'');
+    dot.onclick=()=>{const s=JSON.parse(localStorage.getItem('sam-lessons')||'{}');s[i]=!s[i];localStorage.setItem('sam-lessons',JSON.stringify(s));buildLessons();};
+    grid.appendChild(dot);
+  }
+  const pct=Math.round((done/total)*100);
+  document.getElementById('progressPct').textContent=pct+'%';
+  document.getElementById('progressFill').style.width=pct+'%';
+}
+
+// ── CHECKS ──
+function toggleCheck(key,el){
+  const saved=JSON.parse(localStorage.getItem('sam-checks')||'{}');
+  const today=new Date().toDateString();
+  if(!saved[today])saved[today]={};
+  saved[today][key]=el.checked;
+  localStorage.setItem('sam-checks',JSON.stringify(saved));
+  const item=document.getElementById('chk-'+key);
+  el.checked?item.classList.add('done'):item.classList.remove('done');
+}
+function restoreChecks(){
+  const saved=JSON.parse(localStorage.getItem('sam-checks')||'{}');
+  const checks=saved[new Date().toDateString()]||{};
+  Object.keys(checks).forEach(key=>{
+    const item=document.getElementById('chk-'+key); if(!item)return;
+    const cb=item.querySelector('input');
+    if(checks[key]){cb.checked=true;item.classList.add('done');}
+  });
+}
+
+// ── PANELS ──
+function activateMode(mode,el){
+  document.querySelectorAll('.mode-card').forEach(c=>c.classList.remove('active'));
+  el.classList.add('active');
+  document.querySelectorAll('.action-panel').forEach(p=>p.classList.remove('visible'));
+  document.getElementById('panel-'+mode).classList.add('visible');
+  if(mode==='linkedin') loadNewsTopics();
+  setTimeout(()=>document.getElementById('panel-'+mode).scrollIntoView({behavior:'smooth',block:'nearest'}),50);
+}
+function closePanel(mode){
+  document.getElementById('panel-'+mode).classList.remove('visible');
+  document.querySelectorAll('.mode-card').forEach(c=>c.classList.remove('active'));
+}
+
+// ── OUTREACH ──
+const outreachMessages={
+  followup:'Tell me in this chat: "Run follow-up outreach." I will check your AI Agent Lead Gen Gmail label, find unanswered threads, and create drafts in your voice. You review and send.',
+  new:'Give me: contact name, company, role, and how you know them. I will write the brief and the draft.',
+  warmup:'Give me: contact name and what the meeting is about. I will write a short warm note to send beforehand.'
+};
+function showOutreachInfo(type){
+  document.getElementById('outreach-output-content').textContent=outreachMessages[type];
+  document.getElementById('outreach-output').classList.add('visible');
+}
+
+// ── LEARNING ──
+const learningTasks={
+  anthropic:`Go to anthropic.skilljar.com and pick up at Lesson 9: How to Research with Claude.\n\nSet a 20-minute timer. Finish it. Come back and tell SAM one thing you learned — I will help you apply it to MECENAS today.\n\nClick a lesson number above to mark it done as you go.`,
+  zapier:`Write down one manual process at MECENAS that happens more than twice a week.\n\nExamples: pulling Gmail threads for outreach, updating contact sheets after calls, sending weekly updates.\n\nCome back after the webinar. I will help you build the Zap.`,
+  hubspot:`One HubSpot feature worth 20 minutes: Contact Scoring.\n\nLog in → Contacts → Lead Scoring. Set up 3 rules based on email opens and clicks. Review your top 5 scored contacts every Monday. That is your pipeline review in 10 minutes per week.`,
+  prompt:`The biggest upgrade to SAM briefs: constraints over length.\n\nInstead of: "write a follow-up to someone at OMD"\nWrite: "cold follow-up, CPG accounts at OMD, no response 6 weeks, World Cup 2026 hook, 3 sentences, no dashes"\n\nMore constraints = sharper output. Try it on the next brief today.`
+};
+function getLearning(type){
+  document.getElementById('learn-thinking').classList.add('visible');
+  setTimeout(()=>{
+    document.getElementById('learn-thinking').classList.remove('visible');
+    document.getElementById('learn-output-content').textContent=learningTasks[type];
+    document.getElementById('learn-output').classList.add('visible');
+  },600);
+}
+
+// ── LINKEDIN ──
+const topics={
+  worldcup:`Write a short LinkedIn post from Federico Gagliardone, founder of MECENAS Media, reaching 25M+ U.S. Hispanics monthly. The angle: World Cup 2026 is the biggest Hispanic cultural moment in a generation and most brands will treat it like a sports buy — missing what actually matters. Tone: sharp, confident industry POV, not salesy. First person. 3 short paragraphs max. No hashtags. No em dashes or double hyphens. Human, not corporate.`,
+  julieta:`Write a short LinkedIn post from Federico Gagliardone, founder of MECENAS Media. Proud moment: Julieta Venegas sat down with COCINA for Fit Check Food Check — Tijuana, vintage fashion, motherhood, music. 19M Spotify monthly listeners. Billboard named her 2026 Latin Women in Music Artistic Excellence Award recipient. NPR, Rolling Stone, Billboard covered her album the same week. Genuine and proud, not a press release. Short. Human. No em dashes or double hyphens.`,
+  hispanic:`Write a short LinkedIn post from Federico Gagliardone, founder of MECENAS Media. The angle: there is a real difference between reaching Hispanic audiences and actually connecting with them. Most brands do the former and think they did the latter. Tone: direct and informed. 3 short paragraphs max. No em dashes or double hyphens.`,
+  ai:`Write a short LinkedIn post from Federico Gagliardone, founder of a lean multicultural media company. Using AI to run a small company in 2026 — not perfectly, not fully automated, but genuinely useful. Honest, a little self-aware, not hype. 3 short paragraphs max. No em dashes or double hyphens. Conversational and human.`
+};
+async function generatePost(type){ await callClaude(topics[type],'linkedin'); }
+async function generateCustomPost(){
+  const v=document.getElementById('linkedinCustom').value.trim(); if(!v)return;
+  await callClaude(`Write a short LinkedIn post from Federico Gagliardone, founder of MECENAS Media, reaching 25M+ U.S. Hispanics monthly. Tone: human, warm, direct, not salesy. The angle: ${v}. 3 short paragraphs max. No em dashes or double hyphens.`,'linkedin');
+}
+
+async function callClaude(prompt,mode){
+  const thinking=document.getElementById(mode+'-thinking');
+  const outputBox=document.getElementById(mode+'-output');
+  const outputContent=document.getElementById(mode+'-output-content');
+  thinking.classList.add('visible'); outputBox.classList.remove('visible'); outputContent.textContent='';
+  try{
+    const res=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:1000,messages:[{role:'user',content:prompt}]})});
+    const data=await res.json();
+    const text=data.content?.find(b=>b.type==='text')?.text||'Something went wrong. Try again.';
+    thinking.classList.remove('visible'); outputContent.textContent=text; outputBox.classList.add('visible');
+  }catch{
+    thinking.classList.remove('visible'); outputContent.textContent='Could not reach Claude. Check your connection.'; outputBox.classList.add('visible');
+  }
+}
+
 function copyOutput(id){
-  const text = document.getElementById(id).textContent;
-  navigator.clipboard.writeText(text).then(()=>{
-    const btn = event.currentTarget;
-    btn.textContent='Copied ✓';
+  navigator.clipboard.writeText(document.getElementById(id).textContent).then(()=>{
+    const btn=event.currentTarget; btn.textContent='Copied ✓';
     setTimeout(()=>btn.textContent='Copy to clipboard',2000);
   });
 }
 
 // ── INIT ──
-updateClock();
-setInterval(updateClock, 60000);
-buildTabs();
-buildAlerts();
-buildLessons();
-restoreChecks();
+window.onload = () => {
+  buildLessons();
+  restoreChecks();
+  const check = setInterval(()=>{
+    if(window.google && window.google.accounts){ clearInterval(check); initAuth(); }
+  },100);
+};
 </script>
 </body>
 </html>
