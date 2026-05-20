@@ -750,51 +750,58 @@ async function loadNewsTopics() {
     const allArticles = [];
 
     for(const q of queries) {
-      const res = await fetch(`https://newsapi.org/v2/everything?q=${encodeURIComponent(q)}&language=en&sortBy=publishedAt&pageSize=3&apiKey=${NEWS_API_KEY}`, {
-        headers: { 'X-Api-Key': NEWS_API_KEY }
-      });
-      const data = await res.json();
-      if(data.articles) allArticles.push(...data.articles);
+      try {
+        const res = await fetch('https://sam-proxy.federico-50f.workers.dev', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ type: 'news', query: q })
+        });
+        const data = await res.json();
+        if(data.articles) allArticles.push(...data.articles);
+      } catch(e) {
+        console.error('News fetch error for query:', q, e);
+      }
     }
 
-    const unique = allArticles.filter((a,i,arr) => a.title && !a.title.includes('[Removed]') && arr.findIndex(b=>b.title===a.title)===i).slice(0,4);
+    const unique = allArticles.filter((a,i,arr) =>
+      a.title && !a.title.includes('[Removed]') &&
+      arr.findIndex(b=>b.title===a.title)===i
+    ).slice(0,4);
 
     if(unique.length === 0) {
       container.innerHTML = '<div class="news-loading">No fresh headlines today. Use a standing topic below.</div>';
       return;
     }
 
-    const prompt = `You are SAM, a chief of staff AI for Federico Gagliardone, founder of MECENAS Media (multicultural media, 25M+ U.S. Hispanics monthly).
+    const prompt = `You are SAM, chief of staff for Federico Gagliardone, founder of MECENAS Media (multicultural media, 25M+ U.S. Hispanics monthly).
 
 Here are today's headlines:
 ${unique.map((a,i)=>`${i+1}. "${a.title}" — ${a.source.name}`).join('\n')}
 
-For each headline, write one sentence describing a LinkedIn post angle Federico could take as a multicultural media founder. Format as JSON array:
-[{"headline":"...(short version)","angle":"...one sentence post angle"}]
+For each headline, write one sentence describing a LinkedIn post angle Federico could take as a multicultural media founder. His voice: direct, sharp, no corporate language, no em dashes. Format as JSON array:
+[{"headline":"...(10 words max)","angle":"...one sharp sentence"}]
 
 Only return valid JSON, nothing else.`;
 
     const raw = await callAI(prompt, 400);
-    const angles = JSON.parse(raw.replace(/```json|```/g,'').trim());
+    const angles = JSON.parse(raw.replace(/\`\`\`json|\`\`\`/g,'').trim());
 
-    container.innerHTML = angles.map((a,i) => `
-      <div class="news-item" onclick="generatePostFromNews('${a.headline.replace(/'/g,"\\'").replace(/"/g,'&quot;')}','${a.angle.replace(/'/g,"\\'").replace(/"/g,'&quot;')}')">
+    container.innerHTML = angles.map(a => `
+      <div class="news-item" onclick="generatePostFromNews('${a.headline.replace(/'/g,"\'").replace(/"/g,'&quot;')}','${a.angle.replace(/'/g,"\'").replace(/"/g,'&quot;')}')">
         <div class="news-item-title">${a.headline}</div>
         <div class="news-item-angle">Angle: ${a.angle}</div>
       </div>`).join('');
 
   } catch(e) {
+    console.error('loadNewsTopics error:', e);
     container.innerHTML = '<div class="news-loading">Could not load news. Use a standing topic below.</div>';
   }
 }
 
 async function generatePostFromNews(headline, angle) {
-  const prompt = `Write a short LinkedIn post from Federico Gagliardone, founder of MECENAS Media, reaching 25M+ U.S. Hispanics monthly.
+  const prompt = `Follow these voice rules: ${VOICE_GUIDE}
 
-He wants to comment on this news angle: ${angle}
-Related to: ${headline}
-
-Tone: sharp, human, direct POV from inside the multicultural media industry. Not salesy. First person. 3 short paragraphs max. No em dashes or double hyphens. No hashtag overload.`;
+Write a LinkedIn post from Federico Gagliardone, founder of MECENAS Media (25M+ U.S. Hispanics monthly). Comment on this news angle: ${angle}. Related headline: ${headline}. Sharp POV from inside the multicultural media industry.`;
   await callClaude(prompt, 'linkedin');
 }
 
@@ -971,16 +978,17 @@ function getLearning(type){
 }
 
 // ── LINKEDIN ──
+const VOICE_GUIDE = `Short sentences. Direct. No fluff. No em dashes, no double hyphens, no dashes of any kind. No corporate language. No "tapestry", "journey", "championing", "nuances", "resonate", "impactful". No Spanish words unless quoting. Do not start with Hola or any greeting. No sign-off at the end. First person. Sounds like a founder talking, not a brand. 3 short paragraphs max. Confident but not preachy. No hashtag overload.`;
 const topics={
-  worldcup:`Write a short LinkedIn post from Federico Gagliardone, founder of MECENAS Media, reaching 25M+ U.S. Hispanics monthly. The angle: World Cup 2026 is the biggest Hispanic cultural moment in a generation and most brands will treat it like a sports buy — missing what actually matters. Tone: sharp, confident industry POV, not salesy. First person. 3 short paragraphs max. No hashtags. No em dashes or double hyphens. Human, not corporate.`,
-  julieta:`Write a short LinkedIn post from Federico Gagliardone, founder of MECENAS Media. Proud moment: Julieta Venegas sat down with COCINA for Fit Check Food Check — Tijuana, vintage fashion, motherhood, music. 19M Spotify monthly listeners. Billboard named her 2026 Latin Women in Music Artistic Excellence Award recipient. NPR, Rolling Stone, Billboard covered her album the same week. Genuine and proud, not a press release. Short. Human. No em dashes or double hyphens.`,
-  hispanic:`Write a short LinkedIn post from Federico Gagliardone, founder of MECENAS Media. The angle: there is a real difference between reaching Hispanic audiences and actually connecting with them. Most brands do the former and think they did the latter. Tone: direct and informed. 3 short paragraphs max. No em dashes or double hyphens.`,
-  ai:`Write a short LinkedIn post from Federico Gagliardone, founder of a lean multicultural media company. Using AI to run a small company in 2026 — not perfectly, not fully automated, but genuinely useful. Honest, a little self-aware, not hype. 3 short paragraphs max. No em dashes or double hyphens. Conversational and human.`
+  worldcup:`Follow these voice rules: ${VOICE_GUIDE}\n\nWrite a LinkedIn post from Federico Gagliardone, founder of MECENAS Media (25M+ U.S. Hispanics monthly). Angle: World Cup 2026 is the biggest cultural moment for U.S. Hispanics in a generation. Most brands will treat it like a media buy and miss what actually matters. The real opportunity is in the culture around the game, not the game itself.`,
+  julieta:`Follow these voice rules: ${VOICE_GUIDE}\n\nWrite a LinkedIn post from Federico Gagliardone, founder of MECENAS Media. Proud moment: Julieta Venegas just sat down with COCINA for Fit Check Food Check. She talked about Tijuana, vintage fashion, motherhood, and the music that shaped her. 19M Spotify monthly listeners. Billboard named her the 2026 Latin Women in Music Artistic Excellence Award recipient. NPR, Rolling Stone, and Billboard all covered her new album the same week. Genuinely proud, not a press release.`,
+  hispanic:`Follow these voice rules: ${VOICE_GUIDE}\n\nWrite a LinkedIn post from Federico Gagliardone, founder of MECENAS Media. Angle: there is a real difference between reaching Hispanic audiences and actually connecting with them. Most brands do the former and think they did the latter. He knows this because he builds inside the culture, not around it.`,
+  ai:`Follow these voice rules: ${VOICE_GUIDE}\n\nWrite a LinkedIn post from Federico Gagliardone, founder of a lean multicultural media company. Angle: using AI to run a small company in 2026. Not perfectly automated. Not following the hype. Just useful in a few specific ways. Honest and self-aware.`
 };
 async function generatePost(type){ await callClaude(topics[type],'linkedin'); }
 async function generateCustomPost(){
   const v=document.getElementById('linkedinCustom').value.trim(); if(!v)return;
-  await callClaude(`Write a short LinkedIn post from Federico Gagliardone, founder of MECENAS Media, reaching 25M+ U.S. Hispanics monthly. Tone: human, warm, direct, not salesy. The angle: ${v}. 3 short paragraphs max. No em dashes or double hyphens.`,'linkedin');
+  await callClaude(`Follow these voice rules: ${VOICE_GUIDE}\n\nWrite a LinkedIn post from Federico Gagliardone, founder of MECENAS Media (25M+ U.S. Hispanics monthly). The angle: ${v}.`,'linkedin');
 }
 
 async function callAI(prompt, maxTokens=1000) {
